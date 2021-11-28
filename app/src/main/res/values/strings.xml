@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Just Manga</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="good_afternoon">Good Afternoon</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="have_a_great_day">Have A Great Day</string>
+</resources>

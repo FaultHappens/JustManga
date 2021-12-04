@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.justmanga.databinding.MainScreenButtonCardBinding
+import com.example.justmanga.databinding.MainScreenRvItemCardBinding
 
-class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenButtonsRVAdapter.ViewHolder>(TaskDiffCallBack()) {
+class MainScreenHorizontalRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenHorizontalRVAdapter.ViewHolder>(TaskDiffCallBack()) {
 
-    private lateinit var binding: MainScreenButtonCardBinding
-    private lateinit var dataList: List<Pair<Bitmap, String>>
+    private lateinit var binding: MainScreenRvItemCardBinding
     class TaskDiffCallBack : DiffUtil.ItemCallback<Pair<Bitmap, String>>() {
         override fun areItemsTheSame(oldItem: Pair<Bitmap, String>, newItem: Pair<Bitmap, String>): Boolean {
             return oldItem.second == newItem.second
@@ -22,19 +22,19 @@ class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) ->
         }
     }
 
-    class ViewHolder(binding: MainScreenButtonCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Pair<Bitmap, String>, binding: MainScreenButtonCardBinding) {
-            binding.image.setImageBitmap(data.first)
+    class ViewHolder(binding: MainScreenRvItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Pair<Bitmap, String>, binding: MainScreenRvItemCardBinding) {
+//            binding.image.setImageBitmap(data.first)
             binding.text.text = data.second
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenButtonsRVAdapter.ViewHolder {
-        binding = MainScreenButtonCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenHorizontalRVAdapter.ViewHolder {
+        binding = MainScreenRvItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainScreenButtonsRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainScreenHorizontalRVAdapter.ViewHolder, position: Int) {
         holder.itemView.setOnClickListener { listener(getItem(position)) }
         return holder.bind(getItem(position), binding)
     }

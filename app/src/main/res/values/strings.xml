@@ -9,4 +9,7 @@
     <string name="evening_greeting1">Good Evening</string>
     <string name="morning_greeting2">Have A Great Day</string>
     <string name="liked_manga">Liked Manga</string>
+    <string name="manga_name">Manga Name</string>
+    <string name="popular_right_now">Popular Right Now</string>
+    <string name="your_recent_manga">Your Recent Manga</string>
 </resources>

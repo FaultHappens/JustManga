@@ -15,23 +15,49 @@ import java.util.*
 import androidx.core.content.ContextCompat
 
 import android.graphics.drawable.Drawable
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.justmanga.adapters.MainScreenHorizontalRVAdapter
+import com.example.justmanga.databinding.MainScreenRvItemCardBinding
 
 
 class MainFragment : Fragment() {
 
-    private lateinit var btnsAdapter: MainScreenButtonsRVAdapter
     private lateinit var binding: FragmentMainBinding
+
+    private lateinit var btnsRVAdapter: MainScreenButtonsRVAdapter
+
+    private lateinit var popularMangasRVAdapter: MainScreenHorizontalRVAdapter
+    private lateinit var recentMangasRVAdapter: MainScreenHorizontalRVAdapter
+    private lateinit var newMangasRVAdapter: MainScreenHorizontalRVAdapter
+
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
+    private var popularMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
+    private var recentMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
+    private var newMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getFavouriteGenres()
-        btnsAdapter = MainScreenButtonsRVAdapter { item ->
+        getPopularMangas()
+        getRecentMangas()
+        getNewMangas()
+        btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
             Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
         }
-        btnsAdapter.submitList(btnsList)
-
+        popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+        }
+        recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+        }
+        newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+        }
+        btnsRVAdapter.submitList(btnsList)
+        popularMangasRVAdapter.submitList(popularMangasList)
+        recentMangasRVAdapter.submitList(recentMangasList)
+        newMangasRVAdapter.submitList(newMangasList)
     }
 
     override fun onCreateView(
@@ -46,8 +72,17 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnsLV.layoutManager = LinearLayoutManager(activity?.applicationContext)
-        binding.btnsLV.adapter = btnsAdapter
+        binding.popularMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.popularMangasRV.adapter = popularMangasRVAdapter
+        
+        binding.newMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.newMangasRV.adapter = newMangasRVAdapter
+        
+        binding.recentMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.recentMangasRV.adapter = recentMangasRVAdapter
+
+        binding.btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
+        binding.btnsLV.adapter = btnsRVAdapter
     }
 
     private fun getFavouriteGenres() {
@@ -67,6 +102,65 @@ class MainFragment : Fragment() {
             btnsList.add(Pair(bitmap, "Button1"))
         }
     }
+
+    private fun getPopularMangas() {
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val bitmap = drawable?.let {
+            Bitmap.createBitmap(
+                it.intrinsicWidth,
+                it.intrinsicHeight, Bitmap.Config.ARGB_8888
+            )
+        }
+        if (bitmap != null){
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+            popularMangasList.add(Pair(bitmap, "Manga Name"))
+
+
+        }
+    }
+
+    private fun getRecentMangas() {
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val bitmap = drawable?.let {
+            Bitmap.createBitmap(
+                it.intrinsicWidth,
+                it.intrinsicHeight, Bitmap.Config.ARGB_8888
+            )
+        }
+        if (bitmap != null){
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
+        }
+    }
+
+    private fun getNewMangas() {
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val bitmap = drawable?.let {
+            Bitmap.createBitmap(
+                it.intrinsicWidth,
+                it.intrinsicHeight, Bitmap.Config.ARGB_8888
+            )
+        }
+        if (bitmap != null){
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+            newMangasList.add(Pair(bitmap, "Manga Name"))
+
+
+        }
+    }
+
 
     private fun setWelcomingText() {
         val c: Calendar = Calendar.getInstance()

@@ -94,12 +94,12 @@ class MainFragment : Fragment() {
             )
         }
         if (bitmap != null){
-            btnsList.add(Pair(bitmap, "Button1"))
-            btnsList.add(Pair(bitmap, "Button1"))
-            btnsList.add(Pair(bitmap, "Button1"))
-            btnsList.add(Pair(bitmap, "Button1"))
-            btnsList.add(Pair(bitmap, "Button1"))
-            btnsList.add(Pair(bitmap, "Button1"))
+            btnsList.add(Pair(bitmap, "Liked Manga"))
+            btnsList.add(Pair(bitmap, "Romance"))
+            btnsList.add(Pair(bitmap, "Isekai"))
+            btnsList.add(Pair(bitmap, "Action"))
+            btnsList.add(Pair(bitmap, "Sci-Fi"))
+            btnsList.add(Pair(bitmap, "Slice Of Life"))
         }
     }
 
@@ -118,8 +118,6 @@ class MainFragment : Fragment() {
             popularMangasList.add(Pair(bitmap, "Manga Name"))
             popularMangasList.add(Pair(bitmap, "Manga Name"))
             popularMangasList.add(Pair(bitmap, "Manga Name"))
-
-
         }
     }
 

@@ -12,4 +12,6 @@
     <string name="manga_name">Manga Name</string>
     <string name="popular_right_now">Popular Right Now</string>
     <string name="your_recent_manga">Your Recent Manga</string>
+    <string name="new_manga">New Manga</string>
+    <string name="more">more..</string>
 </resources>

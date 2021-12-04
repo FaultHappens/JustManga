@@ -2,7 +2,11 @@
     <string name="app_name">Just Manga</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="good_afternoon">Good Afternoon</string>
-    <string name="good_morning">Good Morning</string>
-    <string name="have_a_great_day">Have A Great Day</string>
+    <string name="afternoon_greeting">Good Afternoon</string>
+    <string name="morning_greeting1">Good Morning</string>
+    <string name="night_greeting1">Good Night</string>
+    <string name="night_greeting2">What A Beautiful Night</string>
+    <string name="evening_greeting1">Good Evening</string>
+    <string name="morning_greeting2">Have A Great Day</string>
+    <string name="liked_manga">Liked Manga</string>
 </resources>

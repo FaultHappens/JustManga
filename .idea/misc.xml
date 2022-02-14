@@ -3,14 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/drawable/jm_bottom_navigation_bar_icon_selector.xml" value="0.22135416666666666" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/drawable/main_fragment_manga_list_card.xml" value="0.3828125" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/drawable/main_fragment_upper_button.xml" value="0.3828125" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_j_m_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_jm_dashboard_home_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_jm_dashboard_profile_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_jm_dashboard_search_page.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_jm_manga_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_jm_manga_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/fragment_main.xml" value="0.33" />
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_manga_info.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/liked_button_card.xml" value="0.33" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/main_fregment_manga_list_card.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />

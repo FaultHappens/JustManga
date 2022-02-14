@@ -19,7 +19,7 @@ class JMMangaDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jm_manga_info, container, false)
+        return inflater.inflate(R.layout.jm_fragment_manga_info, container, false)
     }
 
 }

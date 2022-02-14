@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.justmanga.R
 
-class JMDashboardSearchPageFragment : Fragment() {
+class JMMangaListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +19,6 @@ class JMDashboardSearchPageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.jm_fragment_dashboard_search_page, container, false)
+        return inflater.inflate(R.layout.jm_fragment_manga_list, container, false)
     }
 }

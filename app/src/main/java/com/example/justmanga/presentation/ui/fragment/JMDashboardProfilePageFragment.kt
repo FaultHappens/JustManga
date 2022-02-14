@@ -21,6 +21,6 @@ class JMDashboardProfilePageFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jm_dashboard_profile_page, container, false)
+        return inflater.inflate(R.layout.jm_fragment_dashboard_profile_page, container, false)
     }
 }

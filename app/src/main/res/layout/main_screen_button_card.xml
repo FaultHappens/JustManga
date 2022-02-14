@@ -16,7 +16,7 @@
             android:id="@+id/image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/like_icon" />
+            app:srcCompat="@drawable/jm_like_icon" />
 
         <TextView
             android:id="@+id/text"

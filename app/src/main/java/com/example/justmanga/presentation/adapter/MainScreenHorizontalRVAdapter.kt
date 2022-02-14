@@ -1,4 +1,4 @@
-package com.example.justmanga.adapters
+package com.example.justmanga.presentation.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.justmanga.databinding.MainScreenButtonCardBinding
 import com.example.justmanga.databinding.MainScreenRvItemCardBinding
 
 class MainScreenHorizontalRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenHorizontalRVAdapter.ViewHolder>(TaskDiffCallBack()) {

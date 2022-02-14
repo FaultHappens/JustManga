@@ -1,4 +1,4 @@
-package com.example.justmanga.fragments
+package com.example.justmanga.presentation.ui.fragment
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -7,23 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.navigation.Navigation
 import com.example.justmanga.R
-import com.example.justmanga.adapters.MainScreenButtonsRVAdapter
-import com.example.justmanga.databinding.FragmentMainBinding
+import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
 import java.util.*
 import androidx.core.content.ContextCompat
 
-import android.graphics.drawable.Drawable
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.justmanga.adapters.MainScreenHorizontalRVAdapter
-import com.example.justmanga.databinding.MainScreenRvItemCardBinding
+import com.example.justmanga.databinding.FragmentJmDashboardHomePageBinding
+import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
 
 
-class MainFragment : Fragment() {
+class JMDashboardHomePageFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentJmDashboardHomePageBinding
 
     private lateinit var btnsRVAdapter: MainScreenButtonsRVAdapter
 
@@ -64,7 +61,7 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainBinding.inflate(layoutInflater)
+        binding = FragmentJmDashboardHomePageBinding.inflate(layoutInflater)
         setWelcomingText()
         return binding.root
 
@@ -86,7 +83,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getFavouriteGenres() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,
@@ -104,7 +101,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getPopularMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,
@@ -122,7 +119,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getRecentMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,
@@ -140,7 +137,7 @@ class MainFragment : Fragment() {
     }
 
     private fun getNewMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,

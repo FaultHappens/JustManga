@@ -1,9 +1,9 @@
-package com.example.justmanga
+package com.example.justmanga.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.view.Window
+import com.example.justmanga.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,11 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/JMDashboardHomePageFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.example.justmanga.fragments.MainFragment"
+        android:id="@+id/JMDashboardHomePageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardHomePageFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_jm_dashboard_home_page" >
+        <action
+            android:id="@+id/action_JMDashboardHomePageFragment_to_JMMangaDetailsFragment"
+            app:destination="@id/JMMangaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMDashboardSearchPageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardSearchPageFragment"
+        android:label="fragment_jm_dashboard_search_page"
+        tools:layout="@layout/fragment_jm_dashboard_search_page" >
+        <action
+            android:id="@+id/action_JMDashboardSearchPageFragment_to_JMMangaDetailsFragment"
+            app:destination="@id/JMMangaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMDashboardProfilePageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardProfilePageFragment"
+        android:label="fragment_jm_dashboard_profile_page"
+        tools:layout="@layout/fragment_jm_dashboard_profile_page" />
+    <fragment
+        android:id="@+id/JMMangaDetailsFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMMangaDetailsFragment"
+        android:label="fragment_jm_manga_info"
+        tools:layout="@layout/fragment_jm_manga_info" />
 </navigation>

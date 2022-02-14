@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".fragments.MainFragment">
+    tools:context=".presentation.ui.fragment.JMDashboardHomePageFragment">
 
 
     <ScrollView
@@ -39,7 +39,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="30dp"
-                android:src="@drawable/settings_icon"
+                android:src="@drawable/jm_settings_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/profileBttn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:tint="@color/white" />
@@ -49,7 +49,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="20dp"
-                android:src="@drawable/user_icon"
+                android:src="@drawable/jm_profile_icon"
                 app:layout_constraintBottom_toBottomOf="@+id/greetingsTV"
                 app:layout_constraintEnd_toStartOf="@+id/settingsBttn"
                 app:layout_constraintTop_toTopOf="@+id/greetingsTV"
@@ -65,9 +65,7 @@
                 android:foregroundGravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/greetingsTV">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                app:layout_constraintTop_toBottomOf="@+id/greetingsTV"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -83,6 +81,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnsLV" />
 
+            <TextView
+                android:id="@+id/morePopularMangasBttn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="@string/more"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintVertical_bias="1.0" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularMangasRV"
                 android:layout_width="match_parent"
@@ -90,6 +103,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 
             <TextView
                 android:id="@+id/textView2"
@@ -135,20 +149,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            <TextView
-                android:id="@+id/morePopularMangasBttn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/varela_round"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="@string/more"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:layout_constraintVertical_bias="1.0" />
+
 
             <TextView
                 android:id="@+id/moreRecentMangasBttn"

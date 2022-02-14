@@ -1,4 +1,4 @@
-package com.example.justmanga.adapters
+package com.example.justmanga.presentation.adapter
 
 import android.graphics.Bitmap
 import android.view.LayoutInflater

@@ -3,7 +3,7 @@ package com.example.justmanga.data.dto.tag.response
 import com.example.justmanga.data.dto.manga.response.Attributes
 import com.example.justmanga.data.dto.manga.response.Relationship
 
-data class JMMangaTagModelsResponse(
+data class JMTagResponseDto(
     val `data`: List<JMMangaTagModel>,
     val limit: Int,
     val offset: Int,

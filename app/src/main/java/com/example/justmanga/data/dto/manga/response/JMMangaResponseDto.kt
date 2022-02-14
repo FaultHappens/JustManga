@@ -1,6 +1,6 @@
 package com.example.justmanga.data.dto.manga.response
 
-data class JMMangaModelsResponse(
+data class JMMangaResponseDto(
     val `data`: List<JMMangaModel>,
     val limit: Int,
     val offset: Int,

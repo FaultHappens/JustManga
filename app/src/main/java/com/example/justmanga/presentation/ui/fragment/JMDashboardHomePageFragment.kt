@@ -2,25 +2,24 @@ package com.example.justmanga.presentation.ui.fragment
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.example.justmanga.R
-import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
-import java.util.*
 import androidx.core.content.ContextCompat
-
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.justmanga.databinding.FragmentJmDashboardHomePageBinding
+import com.example.justmanga.R
+import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
+import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
 import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
+import java.util.*
 
 
 class JMDashboardHomePageFragment : Fragment() {
 
-    private lateinit var binding: FragmentJmDashboardHomePageBinding
+    private lateinit var binding: JmFragmentDashboardHomePageBinding
 
     private lateinit var btnsRVAdapter: MainScreenButtonsRVAdapter
 
@@ -61,7 +60,7 @@ class JMDashboardHomePageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentJmDashboardHomePageBinding.inflate(layoutInflater)
+        binding = JmFragmentDashboardHomePageBinding.inflate(layoutInflater)
         setWelcomingText()
         return binding.root
 

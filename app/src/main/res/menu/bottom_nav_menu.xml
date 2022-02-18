@@ -3,15 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/person"
+        android:id="@+id/JMDashboardHomePageFragment"
         android:icon="@drawable/jm_manga_icon"
         tools:ignore="MenuTitle" />
     <item
-        android:id="@+id/home"
+        android:id="@+id/JMDashboardSearchPageFragment"
         android:icon="@drawable/jm_search_icon"
         tools:ignore="MenuTitle" />
     <item
-        android:id="@+id/settings"
+        android:id="@+id/JMDashboardProfilePageFragment"
         android:icon="@drawable/jm_profile_icon"
         tools:ignore="MenuTitle" />
 </menu>

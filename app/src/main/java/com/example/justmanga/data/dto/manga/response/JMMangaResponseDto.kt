@@ -1,11 +1,24 @@
 package com.example.justmanga.data.dto.manga.response
 
+import com.google.gson.annotations.SerializedName
+
 data class JMMangaResponseDto(
+    @SerializedName("data")
     val `data`: List<JMMangaModel>,
+
+    @SerializedName("limit")
     val limit: Int,
+
+    @SerializedName("offset")
     val offset: Int,
+
+    @SerializedName("response")
     val response: String,
+
+    @SerializedName("result")
     val result: String,
+
+    @SerializedName("total")
     val total: Int
 )
 
@@ -67,12 +80,11 @@ data class Tag(
 )
 
 data class Title(
-    val property1: String,
-    val property2: String
+    val en: String
 )
 
 data class AttributesX(
-    val description: DescriptionX,
+    val description: List<DescriptionX>,
     val group: String,
     val name: Name,
     val version: Int
@@ -91,8 +103,7 @@ data class DescriptionX(
 )
 
 data class Name(
-    val property1: String,
-    val property2: String
+    val en: String
 )
 
 class AttributesXX

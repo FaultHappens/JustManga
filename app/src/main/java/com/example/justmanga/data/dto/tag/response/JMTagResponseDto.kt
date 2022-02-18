@@ -4,7 +4,7 @@ import com.example.justmanga.data.dto.manga.response.Attributes
 import com.example.justmanga.data.dto.manga.response.Relationship
 
 data class JMTagResponseDto(
-    val `data`: List<JMMangaTagModel>,
+    val `data`: List<tagData>,
     val limit: Int,
     val offset: Int,
     val response: String,
@@ -12,9 +12,34 @@ data class JMTagResponseDto(
     val total: Int
 )
 
-data class JMMangaTagModel(
-    val attributes: Attributes,
+data class tagData(
+    val attributes: tagAttributes,
     val id: String,
-    val relationships: List<Relationship>,
+    val relationships: List<tagRelationship>,
     val type: String
 )
+
+data class tagAttributes(
+    val description: List<tagDescription>,
+    val group: String,
+    val name: tagName,
+    val version: Int
+)
+
+data class tagRelationship(
+    val attributes: tagAttributesX,
+    val id: String,
+    val related: String,
+    val type: String
+)
+
+data class tagDescription(
+    val property1: String,
+    val property2: String
+)
+
+data class tagName(
+    val en: String
+)
+
+class tagAttributesX

@@ -6,30 +6,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.justmanga.databinding.MainScreenRvItemCardBinding
+import com.example.justmanga.data.dto.manga.response.JMMangaModel
+import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
 
-class MainScreenHorizontalRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenHorizontalRVAdapter.ViewHolder>(TaskDiffCallBack()) {
+class MainScreenHorizontalRVAdapter(private val listener: (JMMangaModel) -> Unit) : ListAdapter<JMMangaModel, MainScreenHorizontalRVAdapter.ViewHolder>(TaskDiffCallBack()) {
 
-    private lateinit var binding: MainScreenRvItemCardBinding
-    class TaskDiffCallBack : DiffUtil.ItemCallback<Pair<Bitmap, String>>() {
-        override fun areItemsTheSame(oldItem: Pair<Bitmap, String>, newItem: Pair<Bitmap, String>): Boolean {
-            return oldItem.second == newItem.second
+    private lateinit var binding: JmHomePageRvItemCardBinding
+    class TaskDiffCallBack : DiffUtil.ItemCallback<JMMangaModel>() {
+        override fun areItemsTheSame(oldItem: JMMangaModel, newItem: JMMangaModel): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Pair<Bitmap, String>, newItem: Pair<Bitmap, String>): Boolean {
+        override fun areContentsTheSame(oldItem: JMMangaModel, newItem: JMMangaModel): Boolean {
             return oldItem == newItem
         }
     }
 
-    class ViewHolder(binding: MainScreenRvItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Pair<Bitmap, String>, binding: MainScreenRvItemCardBinding) {
+    class ViewHolder(binding: JmHomePageRvItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: JMMangaModel, binding: JmHomePageRvItemCardBinding) {
 //            binding.image.setImageBitmap(data.first)
-            binding.text.text = data.second
+            binding.text.text = data.attributes.title.en
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenHorizontalRVAdapter.ViewHolder {
-        binding = MainScreenRvItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = JmHomePageRvItemCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 

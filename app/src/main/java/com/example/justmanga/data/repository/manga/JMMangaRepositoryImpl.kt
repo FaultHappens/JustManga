@@ -1,5 +1,6 @@
 package com.example.justmanga.data.repository.manga
 
+import android.util.Log
 import com.example.justmanga.data.datasource.manga.JMMangaDataSource
 import com.example.justmanga.data.mapper.manga.response.JMMangaResponseMapper
 import com.example.justmanga.domain.model.manga.response.JMMangaResponse
@@ -11,7 +12,10 @@ class JMMangaRepositoryImpl(
     private val mangaResponseMapper: JMMangaResponseMapper
 ): JMMangaRepository {
     override suspend fun getAllManga(): Response<JMMangaResponse> {
-        return mangaResponseMapper.mapToModel(mangaDataSource.getAllManga().result)
+        val response =  mangaDataSource.getAllManga()
+        Log.d("awdawdawd", response.body().toString())
+
+        return mangaResponseMapper.mapToModel(response)
     }
 
     override suspend fun getRandomManga(): Response<JMMangaResponse> {

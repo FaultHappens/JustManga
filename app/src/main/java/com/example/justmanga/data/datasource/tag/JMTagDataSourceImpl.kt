@@ -9,6 +9,6 @@ class JMTagDataSourceImpl(
     private val tagApiService: JMTagApiService
 ): JMTagDataSource {
     override suspend fun getAllTag(): Response<JMTagResponseDto> {
-        TODO("Not yet implemented")
+        return tagApiService.getAllTag()
     }
 }

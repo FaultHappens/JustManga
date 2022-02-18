@@ -8,27 +8,32 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justmanga.R
+import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
 import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
 import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
+import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
 class JMDashboardHomePageFragment : Fragment() {
 
+    private val vm: JMDashboardHomePageVM by viewModel()
+
     private lateinit var binding: JmFragmentDashboardHomePageBinding
 
     private lateinit var btnsRVAdapter: MainScreenButtonsRVAdapter
-
     private lateinit var popularMangasRVAdapter: MainScreenHorizontalRVAdapter
     private lateinit var recentMangasRVAdapter: MainScreenHorizontalRVAdapter
     private lateinit var newMangasRVAdapter: MainScreenHorizontalRVAdapter
 
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
-    private var popularMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
+    private var popularMangasList: List<JMMangaModel> = listOf()
     private var recentMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
     private var newMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
 
@@ -38,6 +43,9 @@ class JMDashboardHomePageFragment : Fragment() {
         getPopularMangas()
         getRecentMangas()
         getNewMangas()
+        vm.mangaListLiveData.observe(this, {
+            popularMangasList = it
+        })
         btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
             Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
         }
@@ -52,8 +60,8 @@ class JMDashboardHomePageFragment : Fragment() {
         }
         btnsRVAdapter.submitList(btnsList)
         popularMangasRVAdapter.submitList(popularMangasList)
-        recentMangasRVAdapter.submitList(recentMangasList)
-        newMangasRVAdapter.submitList(newMangasList)
+//        recentMangasRVAdapter.submitList(recentMangasList)
+//        newMangasRVAdapter.submitList(newMangasList)
     }
 
     override fun onCreateView(
@@ -79,6 +87,10 @@ class JMDashboardHomePageFragment : Fragment() {
 
         binding.btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
         binding.btnsLV.adapter = btnsRVAdapter
+
+        binding.profileBttn.setOnClickListener{
+            it.findNavController().navigate(R.id.JMDashboardProfilePageFragment)
+        }
     }
 
     private fun getFavouriteGenres() {
@@ -100,21 +112,7 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getPopularMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
-        val bitmap = drawable?.let {
-            Bitmap.createBitmap(
-                it.intrinsicWidth,
-                it.intrinsicHeight, Bitmap.Config.ARGB_8888
-            )
-        }
-        if (bitmap != null){
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-            popularMangasList.add(Pair(bitmap, "Manga Name"))
-        }
+        vm.updateMangaList()
     }
 
     private fun getRecentMangas() {

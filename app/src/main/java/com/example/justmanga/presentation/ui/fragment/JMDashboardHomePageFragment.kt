@@ -108,7 +108,7 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getFavouriteGenres() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_main_screen_btns_temp_holder)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,

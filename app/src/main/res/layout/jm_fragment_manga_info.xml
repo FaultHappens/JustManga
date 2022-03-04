@@ -1,21 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".presentation.ui.fragment.JMDashboardHomePageFragment">
+    tools:context=".presentation.ui.fragment.JMMangaInfoFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/mangaImage"
+                android:layout_width="140dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/varela_round"
+                android:text="@string/alternative"
+                android:textColor="#CCCBCB"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/mangaImage"
+                app:layout_constraintTop_toTopOf="@+id/mangaImage" />
+
+            <TextView
+                android:id="@+id/altNamesTV"
+                android:maxLines="4"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView5"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Alternative name of manga" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/varela_round"
+                android:text="@string/author"
+                android:textColor="#CCCBCB"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/mangaImage"
+                app:layout_constraintTop_toBottomOf="@+id/altNamesTV" />
+
+            <TextView
+                android:id="@+id/authorNameTV"
+                android:layout_width="120dp"
+                android:maxLines="3"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/altNamesTV"
+                app:layout_constraintTop_toTopOf="@+id/textView6"
+                tools:text="Author name" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/varela_round"
+                android:text="@string/artist"
+                android:textColor="#CCCBCB"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/mangaImage"
+                app:layout_constraintTop_toBottomOf="@+id/authorNameTV" />
+
+            <TextView
+                android:id="@+id/artistNameTV"
+                android:layout_width="120dp"
+                android:maxLines="3"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/authorNameTV"
+                app:layout_constraintTop_toTopOf="@+id/textView8"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Artist name" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/varela_round"
+                android:text="@string/status"
+                android:textColor="#CCCBCB"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/mangaImage"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/statusTV"
+                android:layout_width="120dp"
+                android:maxLines="3"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/artistNameTV"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintVertical_bias="1.0"
+                tools:text="Manga status" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/varela_round"
+                android:text="@string/genres"
+                android:textColor="#CCCBCB"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/mangaImage"
+                app:layout_constraintTop_toBottomOf="@+id/mangaImage" />
+
+            <TextView
+                android:id="@+id/genresTV"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:maxLines="5"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/varela_round"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView12"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toTopOf="@+id/textView12"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="List of Manga Genres" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@+id/genresTV"
+                tools:layout_editor_absoluteX="0dp" />
 
 
-    <ImageView
-        android:id="@+id/mangaImage"
-        android:layout_width="120dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

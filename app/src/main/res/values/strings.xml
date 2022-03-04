@@ -17,4 +17,8 @@
     <string name="author">Author</string>
     <string name="title">Title</string>
     <string name="tags">Tags</string>
+    <string name="alternative">Alternative</string>
+    <string name="artist">Artist</string>
+    <string name="status">Status</string>
+    <string name="genres">Genres</string>
 </resources>

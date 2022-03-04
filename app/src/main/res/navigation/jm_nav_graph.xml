@@ -40,8 +40,8 @@
         android:label="fragment_jm_manga_info"
         tools:layout="@layout/jm_fragment_manga_info" >
         <argument
-            android:name="mangaModel"
-            app:argType="com.example.justmanga.data.dto.manga.response.JMMangaModel" />
+            android:name="mangaWithCoverModel"
+            app:argType="com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel" />
     </fragment>
     <fragment
         android:id="@+id/JMMangaListFragment"

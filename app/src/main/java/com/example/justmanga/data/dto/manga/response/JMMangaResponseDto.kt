@@ -23,12 +23,12 @@ data class JMMangaResponseDto(
     val total: Int
 )
 
-class JMMangaModel: Serializable{
-    lateinit var attributes: Attributes
-    lateinit var id: String
-    lateinit var relationships: List<RelationshipX>
-    lateinit var type: String
-}
+data class JMMangaModel(
+    val attributes: Attributes,
+    val id: String,
+    val relationships: List<RelationshipX>,
+    val type: String
+)
 
 data class Attributes(
     val altTitles: List<AltTitle>,
@@ -60,7 +60,7 @@ data class RelationshipX(
 
 data class AltTitle(
     val ja: String,
-    val ru: String
+    val en: String
 )
 
 data class Description(

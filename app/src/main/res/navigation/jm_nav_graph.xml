@@ -36,9 +36,13 @@
         tools:layout="@layout/jm_fragment_dashboard_profile_page" />
     <fragment
         android:id="@+id/JMMangaDetailsFragment"
-        android:name="com.example.justmanga.presentation.ui.fragment.JMMangaDetailsFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMMangaInfoFragment"
         android:label="fragment_jm_manga_info"
-        tools:layout="@layout/jm_fragment_manga_info" />
+        tools:layout="@layout/jm_fragment_manga_info" >
+        <argument
+            android:name="mangaModel"
+            app:argType="com.example.justmanga.data.dto.manga.response.JMMangaModel" />
+    </fragment>
     <fragment
         android:id="@+id/JMMangaListFragment"
         android:name="com.example.justmanga.presentation.ui.fragment.JMMangaListFragment"

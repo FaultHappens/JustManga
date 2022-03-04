@@ -1,12 +1,12 @@
 package com.example.justmanga.data.dto.cover.response
 
 data class JMCoverResponseDto(
-    val `data`: JMCover,
+    val `data`: JMCoverModel,
     val response: String,
     val result: String
 )
 
-data class JMCover(
+data class JMCoverModel(
     val attributes: Attributes,
     val id: String,
     val relationships: List<Relationship>,

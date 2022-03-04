@@ -11,10 +11,8 @@ class JMMangaRepositoryImpl(
     private val mangaDataSource: JMMangaDataSource,
     private val mangaResponseMapper: JMMangaResponseMapper
 ): JMMangaRepository {
-    override suspend fun getAllManga(): Response<JMMangaResponse> {
+    override suspend fun getAllManga(): JMMangaResponse {
         val response =  mangaDataSource.getAllManga()
-        Log.d("awdawdawd", response.body().toString())
-
         return mangaResponseMapper.mapToModel(response)
     }
 

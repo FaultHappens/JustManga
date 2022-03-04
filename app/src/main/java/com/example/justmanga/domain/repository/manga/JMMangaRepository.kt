@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.QueryMap
 
 interface JMMangaRepository {
-    suspend fun getAllManga(): Response<JMMangaResponse>
+    suspend fun getAllManga(): JMMangaResponse
     suspend fun getRandomManga(): Response<JMMangaResponse>
     suspend fun searchManga(queryMap: Map<String, Any>): Response<JMMangaResponse>
 }

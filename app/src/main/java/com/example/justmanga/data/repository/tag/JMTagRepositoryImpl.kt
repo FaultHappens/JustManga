@@ -10,7 +10,7 @@ class JMTagRepositoryImpl(
     private val tagDataSource: JMTagDataSource,
     private val tagResponseMapper: JMTagResponseMapper
 ): JMTagRepository {
-    override suspend fun getAllTag(): Response<JMTagResponse> {
+    override suspend fun getAllTag(): JMTagResponse {
         return tagResponseMapper.mapToModel(tagDataSource.getAllTag())
     }
 

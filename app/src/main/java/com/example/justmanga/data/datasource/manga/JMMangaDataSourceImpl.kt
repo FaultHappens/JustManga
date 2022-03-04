@@ -9,7 +9,6 @@ class JMMangaDataSourceImpl(
     private val mangaApiService: JMMangaApiService
     ): JMMangaDataSource {
     override suspend fun getAllManga(): Response<JMMangaResponseDto> {
-        Log.d("awdawdawd", mangaApiService.getAllManga().toString())
         return mangaApiService.getAllManga()
     }
 

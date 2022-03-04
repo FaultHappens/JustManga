@@ -1,9 +1,9 @@
 package com.example.justmanga.domain.model.tag.response
 
-import com.example.justmanga.data.dto.tag.response.tagData
+import com.example.justmanga.data.dto.tag.response.JMTagModel
 
 data class JMTagResponse (
-    val `data`: List<tagData>,
+    val `data`: List<JMTagModel>,
     val limit: Int,
     val offset: Int,
     val response: String,

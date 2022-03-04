@@ -2,6 +2,7 @@ package com.example.justmanga.presentation.ui.fragment
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justmanga.R
@@ -33,9 +35,9 @@ class JMDashboardHomePageFragment : Fragment() {
     private lateinit var newMangasRVAdapter: MainScreenHorizontalRVAdapter
 
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
-    private var popularMangasList: List<JMMangaModel> = listOf()
-    private var recentMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
-    private var newMangasList: MutableList<Pair<Bitmap, String>> = mutableListOf()
+    private var popularMangasList: List<Pair<JMMangaModel, String>> = listOf()
+    private var recentMangasList: List<Pair<JMMangaModel, String>> = listOf()
+    private var newMangasList: List<Pair<JMMangaModel, String>> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +45,36 @@ class JMDashboardHomePageFragment : Fragment() {
         getPopularMangas()
         getRecentMangas()
         getNewMangas()
-        vm.mangaListLiveData.observe(this, {
+        vm.popularMangaListLiveData.observe(this, {
             popularMangasList = it
+            popularMangasRVAdapter.updateList(popularMangasList)
+        })
+        vm.recentMangaListLiveData.observe(this, {
+            Log.d("observer", it.toString())
+            recentMangasList = it
+            recentMangasRVAdapter.updateList(recentMangasList)
+        })
+        vm.newMangaListLiveData.observe(this, {
+            newMangasList = it
+            newMangasRVAdapter.updateList(newMangasList)
         })
         btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
             Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
         }
         popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            findNavController().navigate(action)
         }
         recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            findNavController().navigate(action)
         }
         newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            findNavController().navigate(action)
         }
         btnsRVAdapter.submitList(btnsList)
-        popularMangasRVAdapter.submitList(popularMangasList)
-//        recentMangasRVAdapter.submitList(recentMangasList)
-//        newMangasRVAdapter.submitList(newMangasList)
+
     }
 
     override fun onCreateView(
@@ -112,58 +125,27 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getPopularMangas() {
-        vm.updateMangaList()
+        vm.updatePopularMangaList()
     }
 
     private fun getRecentMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
-        val bitmap = drawable?.let {
-            Bitmap.createBitmap(
-                it.intrinsicWidth,
-                it.intrinsicHeight, Bitmap.Config.ARGB_8888
-            )
-        }
-        if (bitmap != null){
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-            recentMangasList.add(Pair(bitmap, "Recent Manga Name"))
-        }
+        vm.updateRecentMangaList()
     }
 
     private fun getNewMangas() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
-        val bitmap = drawable?.let {
-            Bitmap.createBitmap(
-                it.intrinsicWidth,
-                it.intrinsicHeight, Bitmap.Config.ARGB_8888
-            )
-        }
-        if (bitmap != null){
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-            newMangasList.add(Pair(bitmap, "Manga Name"))
-
-
-        }
+        vm.updateNewMangaList()
     }
 
 
     private fun setWelcomingText() {
-        val c: Calendar = Calendar.getInstance()
-        val timeOfDay: Int = c.get(Calendar.HOUR_OF_DAY)
-        if (timeOfDay >= 4 && timeOfDay < 12) {
+        val timeOfDay: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        if (timeOfDay in 4..11) {
             binding.greetingsTV.text = getString(R.string.morning_greeting1)
-        } else if (timeOfDay >= 12 && timeOfDay < 16) {
+        } else if (timeOfDay in 12..15) {
             binding.greetingsTV.text = getString(R.string.afternoon_greeting)
-        } else if (timeOfDay >= 16 && timeOfDay < 21) {
+        } else if (timeOfDay in 16..20) {
             binding.greetingsTV.text = getString(R.string.evening_greeting1)
-        } else if (timeOfDay >= 21 && timeOfDay < 24 || timeOfDay >= 0 && timeOfDay < 4) {
+        } else if (timeOfDay in 21..23 || timeOfDay in 0..3) {
             binding.greetingsTV.text = getString(R.string.night_greeting1)
         }
     }

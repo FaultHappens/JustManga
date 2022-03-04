@@ -1,6 +1,7 @@
 package com.example.justmanga.data.dto.manga.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class JMMangaResponseDto(
     @SerializedName("data")
@@ -22,12 +23,12 @@ data class JMMangaResponseDto(
     val total: Int
 )
 
-data class JMMangaModel(
-    val attributes: Attributes,
-    val id: String,
-    val relationships: List<RelationshipX>,
-    val type: String
-)
+class JMMangaModel: Serializable{
+    lateinit var attributes: Attributes
+    lateinit var id: String
+    lateinit var relationships: List<RelationshipX>
+    lateinit var type: String
+}
 
 data class Attributes(
     val altTitles: List<AltTitle>,
@@ -58,18 +59,29 @@ data class RelationshipX(
 )
 
 data class AltTitle(
-    val property1: String,
-    val property2: String
+    val ja: String,
+    val ru: String
 )
 
 data class Description(
-    val property1: String,
-    val property2: String
+    val en: String,
+    val ja: String,
+    val ru: String
 )
 
 data class Links(
-    val property1: String,
-    val property2: String
+    val al: String,
+    val ap: String,
+    val bw: String,
+    val mu: String,
+    val nu: String,
+    val kt: String,
+    val amz: String,
+    val ebj: String,
+    val mal: String,
+    val cdj: String,
+    val raw: String,
+    val engtl: String,
 )
 
 data class Tag(

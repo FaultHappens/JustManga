@@ -5,8 +5,10 @@ import com.example.justmanga.data.mapper.JMBaseMapper
 import com.example.justmanga.domain.model.manga.response.JMMangaResponse
 import retrofit2.Response
 
-class JMMangaResponseMapper : JMBaseMapper<Response<JMMangaResponseDto>, Response<JMMangaResponse>> {
-    override fun mapToModel(dto: Response<JMMangaResponseDto>): Response<JMMangaResponse> {
-        return dto as Response<JMMangaResponse>
+class JMMangaResponseMapper : JMBaseMapper<Response<JMMangaResponseDto>, JMMangaResponse> {
+    override fun mapToModel(dto: Response<JMMangaResponseDto>): JMMangaResponse {
+        return with(dto.body()){
+            JMMangaResponse(this!!.data, limit, offset, response, result, total)
+        }
     }
 }

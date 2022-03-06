@@ -8,8 +8,8 @@ import com.bumptech.glide.Glide
 import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 
-class MainScreenHorizontalRVAdapter(private val listener: (JMMangaWithCoverModel) -> Unit) :
-    RecyclerView.Adapter<MainScreenHorizontalRVAdapter.MangaViewHolder>() {
+class JMMainScreenHorizontalRVAdapter(private val listener: (JMMangaWithCoverModel) -> Unit) :
+    RecyclerView.Adapter<JMMainScreenHorizontalRVAdapter.MangaViewHolder>() {
 
     private var mangaListWithCovers: List<JMMangaWithCoverModel> = listOf()
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.justmanga.R
 import com.example.justmanga.databinding.JmHomePageButtonCardBinding
 
-class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenButtonsRVAdapter.ViewHolder>(TaskDiffCallBack()) {
+class JMMainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, JMMainScreenButtonsRVAdapter.ViewHolder>(TaskDiffCallBack()) {
 
     private lateinit var binding: JmHomePageButtonCardBinding
     private lateinit var dataList: List<Pair<Bitmap, String>>
@@ -30,12 +30,12 @@ class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) ->
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenButtonsRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JMMainScreenButtonsRVAdapter.ViewHolder {
         binding = JmHomePageButtonCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MainScreenButtonsRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: JMMainScreenButtonsRVAdapter.ViewHolder, position: Int) {
         holder.itemView.setOnClickListener { listener(getItem(position)) }
         return holder.bind(getItem(position), binding)
     }

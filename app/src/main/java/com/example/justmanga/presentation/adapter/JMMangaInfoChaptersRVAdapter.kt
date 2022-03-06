@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.databinding.JmChapterCardViewBinding
-import org.koin.core.component.getScopeId
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit) :
-    RecyclerView.Adapter<MangaInfoChaptersRVAdapter.ChapterViewHolder>() {
+class JMMangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit) :
+    RecyclerView.Adapter<JMMangaInfoChaptersRVAdapter.ChapterViewHolder>() {
 
     private var chaptersList: List<JMChapterModel> = listOf()
 
@@ -49,7 +48,7 @@ class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit)
         parent: ViewGroup,
         viewType: Int
     ): ChapterViewHolder {
-        return MangaInfoChaptersRVAdapter.ChapterViewHolder(
+        return JMMangaInfoChaptersRVAdapter.ChapterViewHolder(
             JmChapterCardViewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -59,7 +58,7 @@ class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit)
     }
 
     override fun onBindViewHolder(
-        holder: MangaInfoChaptersRVAdapter.ChapterViewHolder,
+        holder: JMMangaInfoChaptersRVAdapter.ChapterViewHolder,
         position: Int
     ) {
         holder.itemView.setOnClickListener{listener(chaptersList[position])}

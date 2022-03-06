@@ -9,21 +9,34 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
+import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
+import com.example.justmanga.presentation.vm.JMMangaInfoVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class JMMangaInfoFragment : Fragment() {
 
+    private val vm: JMMangaInfoVM by viewModel()
+
     private lateinit var binding: JmFragmentMangaInfoBinding
     private lateinit var manga: JMMangaModel
     private lateinit var coverID: String
-    private val args: JMMangaInfoFragmentArgs by navArgs<JMMangaInfoFragmentArgs>()
+    private val args: JMMangaInfoFragmentArgs by navArgs()
+
+    private lateinit var mangaChaptersList: List<JMChapterModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         manga = args.mangaWithCoverModel.manga
         coverID = args.mangaWithCoverModel.coverID
+        vm.mangaChaptersListLiveData.observe(this, {
+            mangaChaptersList = it
+            Log.d("Chapters", mangaChaptersList.toString())
+//            popularMangasRVAdapter.updateList(popularMangasList)
+        })
 
     }
 
@@ -37,9 +50,19 @@ class JMMangaInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadMangaInfo()
+        loadMangaChapters()
+    }
+
+    private fun loadMangaChapters() {
+        vm.updateMangaChaptersList(args.mangaWithCoverModel.manga.id)
+    }
+
+
+    private fun loadMangaInfo(){
         val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
-        circularProgressDrawable.strokeWidth = 5f
-        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.strokeWidth = 20f
+        circularProgressDrawable.centerRadius = 100f
         circularProgressDrawable.start()
         var altText = ""
         for (i in manga.attributes.altTitles) {
@@ -73,5 +96,6 @@ class JMMangaInfoFragment : Fragment() {
                 .centerCrop()
                 .into(mangaImage)
         }
+
     }
 }

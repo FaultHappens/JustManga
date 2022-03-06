@@ -30,7 +30,6 @@ class JMDashboardHomePageVM(
 
     fun updatePopularMangaList(){
         viewModelScope.launch {
-
             popularMangaListWithCovers.clear()
             val response = jmMangaRepository.getAllManga()
             for(i in response.data){

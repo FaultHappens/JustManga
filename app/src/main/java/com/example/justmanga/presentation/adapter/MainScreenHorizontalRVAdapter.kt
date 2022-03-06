@@ -17,8 +17,8 @@ class MainScreenHorizontalRVAdapter(private val listener: (JMMangaWithCoverModel
     class MangaViewHolder(private val binding: JmHomePageRvItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: JMMangaWithCoverModel) {
             val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.strokeWidth = 20f
+            circularProgressDrawable.centerRadius = 100f
             circularProgressDrawable.start()
 
             Glide.with(binding.root)

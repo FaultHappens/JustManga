@@ -6,8 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.justmanga.R
+import com.example.justmanga.presentation.vm.JMMangaInfoVM
+import com.example.justmanga.presentation.vm.JMMangaListVM
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class JMMangaListFragment : Fragment() {
+
+
+    private val vm: JMMangaListVM by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

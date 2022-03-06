@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 

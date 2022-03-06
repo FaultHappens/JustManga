@@ -20,6 +20,8 @@
             app:srcCompat="@drawable/jm_like_icon" />
 
         <TextView
+            android:fontFamily="@font/varela_round"
+            android:textStyle="bold"
             android:id="@+id/text"
             android:layout_width="96dp"
             android:layout_height="wrap_content"

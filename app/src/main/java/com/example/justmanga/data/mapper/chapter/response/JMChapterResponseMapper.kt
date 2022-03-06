@@ -8,7 +8,7 @@ import retrofit2.Response
 class JMChapterResponseMapper : JMBaseMapper<Response<JMChapterResponseDto>, JMChapterResponse> {
     override fun mapToModel(dto: Response<JMChapterResponseDto>): JMChapterResponse {
         return with(dto.body()){
-            JMChapterResponse(this!!.data, limit, offset, response, result, total)
+            JMChapterResponse(this!!.data.sortedWith(compareBy { it.attributes.chapter }), limit, offset, response, result, total)
         }
     }
 }

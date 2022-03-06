@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
+import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
+import com.example.justmanga.presentation.adapter.MangaInfoChaptersRVAdapter
 import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
 import com.example.justmanga.presentation.vm.JMMangaInfoVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,6 +30,9 @@ class JMMangaInfoFragment : Fragment() {
     private lateinit var coverID: String
     private val args: JMMangaInfoFragmentArgs by navArgs()
 
+
+    private lateinit var chaptersRVAdapter: MangaInfoChaptersRVAdapter
+
     private lateinit var mangaChaptersList: List<JMChapterModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +41,13 @@ class JMMangaInfoFragment : Fragment() {
         coverID = args.mangaWithCoverModel.coverID
         vm.mangaChaptersListLiveData.observe(this, {
             mangaChaptersList = it
-            Log.d("Chapters", mangaChaptersList.toString())
-//            popularMangasRVAdapter.updateList(popularMangasList)
+            chaptersRVAdapter.updateList(mangaChaptersList)
         })
+        chaptersRVAdapter = MangaInfoChaptersRVAdapter { item ->
+            //TODO: navigation to chapter reading fragment with JMChapterModel argument
+//            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
+//            findNavController().navigate(action)
+        }
 
     }
 
@@ -50,6 +61,9 @@ class JMMangaInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.chaptersRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
+        binding.chaptersRV.adapter = chaptersRVAdapter
+
         loadMangaInfo()
         loadMangaChapters()
     }

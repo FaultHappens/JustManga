@@ -167,6 +167,7 @@
                 tools:text="List of Manga Genres" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chaptersRV"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
                 android:layout_marginTop="30dp"

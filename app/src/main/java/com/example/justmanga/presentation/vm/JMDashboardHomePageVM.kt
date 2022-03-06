@@ -1,10 +1,8 @@
 package com.example.justmanga.presentation.vm
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.domain.repository.cover.JMCoverRepository
 import com.example.justmanga.domain.repository.manga.JMMangaRepository

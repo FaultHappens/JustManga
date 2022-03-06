@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -14,6 +15,7 @@ import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
 import com.example.justmanga.presentation.adapter.JMMangaInfoChaptersRVAdapter
 import com.example.justmanga.presentation.vm.JMMangaInfoVM
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -35,10 +37,7 @@ class JMMangaInfoFragment : Fragment() {
         super.onCreate(savedInstanceState)
         manga = args.mangaWithCoverModel.manga
         coverID = args.mangaWithCoverModel.coverID
-        vm.mangaChaptersListLiveData.observe(this, {
-            mangaChaptersList = it
-            chaptersRVAdapter.updateList(mangaChaptersList)
-        })
+
         chaptersRVAdapter = JMMangaInfoChaptersRVAdapter { item ->
             //TODO: navigation to chapter reading fragment with JMChapterModel argument
 //            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
@@ -59,9 +58,16 @@ class JMMangaInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.chaptersRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         binding.chaptersRV.adapter = chaptersRVAdapter
-
         loadMangaInfo()
         loadMangaChapters()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            vm.mangaChaptersListLiveData.observe(viewLifecycleOwner, {
+                chaptersRVAdapter.submitData(lifecycle, it)
+            })
+        }
+
+
     }
 
     private fun loadMangaChapters() {

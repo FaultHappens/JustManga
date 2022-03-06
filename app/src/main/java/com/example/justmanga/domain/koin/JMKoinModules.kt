@@ -4,8 +4,6 @@ import com.example.justmanga.data.apiservice.chapter.JMChapterApiService
 import com.example.justmanga.data.apiservice.cover.JMCoverApiService
 import com.example.justmanga.data.apiservice.manga.JMMangaApiService
 import com.example.justmanga.data.apiservice.tag.JMTagApiService
-import com.example.justmanga.data.datasource.chapter.JMChapterDataSource
-import com.example.justmanga.data.datasource.chapter.JMChapterDataSourceImpl
 import com.example.justmanga.data.datasource.cover.JMCoverDataSource
 import com.example.justmanga.data.datasource.cover.JMCoverDataSourceImpl
 import com.example.justmanga.data.datasource.manga.JMMangaDataSource
@@ -47,7 +45,7 @@ val modules = module {
     single<JMMangaDataSource> { JMMangaDataSourceImpl(get()) }
     single<JMCoverDataSource> { JMCoverDataSourceImpl(get()) }
     single<JMTagDataSource> { JMTagDataSourceImpl(get()) }
-    single<JMChapterDataSource> { JMChapterDataSourceImpl(get()) }
+//    single<JMChapterDataSource> { JMChapterDataSourceImpl(get()) }
 
     //mappers
     single { JMMangaResponseMapper() }

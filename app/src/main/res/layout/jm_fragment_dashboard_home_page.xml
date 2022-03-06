@@ -7,8 +7,6 @@
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".presentation.ui.fragment.JMDashboardHomePageFragment">
-
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -25,9 +23,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/varela_round"
+
                 android:gravity="start"
                 android:text="@string/morning_greeting1"
+                android:fontFamily="@font/varela_round"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"

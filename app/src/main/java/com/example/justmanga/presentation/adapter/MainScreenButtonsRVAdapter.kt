@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.justmanga.R
 import com.example.justmanga.databinding.JmHomePageButtonCardBinding
 
 class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) -> Unit) : ListAdapter<Pair<Bitmap, String>, MainScreenButtonsRVAdapter.ViewHolder>(TaskDiffCallBack()) {
@@ -24,7 +25,7 @@ class MainScreenButtonsRVAdapter(private val listener: (Pair<Bitmap, String>) ->
 
     class ViewHolder(binding: JmHomePageButtonCardBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: Pair<Bitmap, String>, binding: JmHomePageButtonCardBinding) {
-            binding.image.setImageBitmap(data.first)
+            binding.image.setImageResource(R.drawable.jm_main_screen_btns_temp_holder)
             binding.text.text = data.second
         }
     }

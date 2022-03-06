@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
+import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.domain.repository.cover.JMCoverRepository
 import com.example.justmanga.domain.repository.manga.JMMangaRepository
 import kotlinx.coroutines.launch
@@ -13,23 +14,22 @@ class JMDashboardHomePageVM(
     private val jmMangaRepository: JMMangaRepository,
     private val jmCoverRepository: JMCoverRepository
 ) : ViewModel(){
-    private var popularMangaListWithCovers: MutableList<Pair<JMMangaModel, String>> = mutableListOf()
-    private var recentMangaListWithCovers: MutableList<Pair<JMMangaModel, String>> = mutableListOf()
-    private var newMangaListWithCovers: MutableList<Pair<JMMangaModel, String>> = mutableListOf()
+    private var popularMangaListWithCovers: MutableList<JMMangaWithCoverModel> = mutableListOf()
+    private var recentMangaListWithCovers: MutableList<JMMangaWithCoverModel> = mutableListOf()
+    private var newMangaListWithCovers: MutableList<JMMangaWithCoverModel> = mutableListOf()
 
-    val popularMangaListLiveData: MutableLiveData<List<Pair<JMMangaModel, String>>> by lazy {
-        MutableLiveData<List<Pair<JMMangaModel, String>>>()
+    val popularMangaListLiveData: MutableLiveData<List<JMMangaWithCoverModel>> by lazy {
+        MutableLiveData<List<JMMangaWithCoverModel>>()
     }
-    val recentMangaListLiveData: MutableLiveData<List<Pair<JMMangaModel, String>>> by lazy {
-        MutableLiveData<List<Pair<JMMangaModel, String>>>()
+    val recentMangaListLiveData: MutableLiveData<List<JMMangaWithCoverModel>> by lazy {
+        MutableLiveData<List<JMMangaWithCoverModel>>()
     }
-    val newMangaListLiveData: MutableLiveData<List<Pair<JMMangaModel, String>>> by lazy {
-        MutableLiveData<List<Pair<JMMangaModel, String>>>()
+    val newMangaListLiveData: MutableLiveData<List<JMMangaWithCoverModel>> by lazy {
+        MutableLiveData<List<JMMangaWithCoverModel>>()
     }
 
     fun updatePopularMangaList(){
         viewModelScope.launch {
-
             popularMangaListWithCovers.clear()
             val response = jmMangaRepository.getAllManga()
             for(i in response.data){
@@ -39,7 +39,7 @@ class JMDashboardHomePageVM(
                         coverId = it.id
                     }
                 }
-                popularMangaListWithCovers.add(Pair(i, jmCoverRepository.getCover(coverId)))
+                popularMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))
             }
             popularMangaListLiveData.value = popularMangaListWithCovers
         }
@@ -56,8 +56,7 @@ class JMDashboardHomePageVM(
                         coverId = it.id
                     }
                 }
-                val cover: String = jmCoverRepository.getCover(coverId)
-                recentMangaListWithCovers.add(Pair(i, cover))
+                recentMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))
             }
             recentMangaListLiveData.value = recentMangaListWithCovers
         }
@@ -74,7 +73,7 @@ class JMDashboardHomePageVM(
                         coverId = it.id
                     }
                 }
-                newMangaListWithCovers.add(Pair(i, jmCoverRepository.getCover(coverId)))
+                newMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))
             }
             newMangaListLiveData.value = newMangaListWithCovers
         }

@@ -5,31 +5,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
-import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
+import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 
-class MainScreenHorizontalRVAdapter(private val listener: (Pair<JMMangaModel, String>) -> Unit) :
+class MainScreenHorizontalRVAdapter(private val listener: (JMMangaWithCoverModel) -> Unit) :
     RecyclerView.Adapter<MainScreenHorizontalRVAdapter.MangaViewHolder>() {
 
-    private var mangaListWithCovers: List<Pair<JMMangaModel, String>> = listOf()
+    private var mangaListWithCovers: List<JMMangaWithCoverModel> = listOf()
 
     class MangaViewHolder(private val binding: JmHomePageRvItemCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Pair<JMMangaModel, String>) {
+        fun bind(data: JMMangaWithCoverModel) {
             val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
-            circularProgressDrawable.strokeWidth = 5f
-            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.strokeWidth = 20f
+            circularProgressDrawable.centerRadius = 100f
             circularProgressDrawable.start()
 
             Glide.with(binding.root)
-                .load("https://uploads.mangadex.org/covers/${data.first.id}/${data.second}.256.jpg")
+                .load("https://uploads.mangadex.org/covers/${data.manga.id}/${data.coverID}.256.jpg")
                 .placeholder(circularProgressDrawable)
                 .centerCrop()
                 .into(binding.image)
-            binding.text.text = data.first.attributes.title.en
+            binding.text.text = data.manga.attributes.title.en
         }
     }
 
-    fun updateList(newMangaListWithCovers: List<Pair<JMMangaModel, String>>) {
+    fun updateList(newMangaListWithCovers: List<JMMangaWithCoverModel>) {
         mangaListWithCovers = newMangaListWithCovers
         notifyItemRangeChanged(0, mangaListWithCovers.size)
     }

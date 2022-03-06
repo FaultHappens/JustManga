@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.justmanga.R
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
+import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
 import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
 import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
@@ -35,9 +36,9 @@ class JMDashboardHomePageFragment : Fragment() {
     private lateinit var newMangasRVAdapter: MainScreenHorizontalRVAdapter
 
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
-    private var popularMangasList: List<Pair<JMMangaModel, String>> = listOf()
-    private var recentMangasList: List<Pair<JMMangaModel, String>> = listOf()
-    private var newMangasList: List<Pair<JMMangaModel, String>> = listOf()
+    private var popularMangasList: List<JMMangaWithCoverModel> = listOf()
+    private var recentMangasList: List<JMMangaWithCoverModel> = listOf()
+    private var newMangasList: List<JMMangaWithCoverModel> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,15 +63,15 @@ class JMDashboardHomePageFragment : Fragment() {
             Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
         }
         popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
             findNavController().navigate(action)
         }
         recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
             findNavController().navigate(action)
         }
         newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item.first)
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
             findNavController().navigate(action)
         }
         btnsRVAdapter.submitList(btnsList)
@@ -107,7 +108,7 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getFavouriteGenres() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_like_icon)
+        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_main_screen_btns_temp_holder)
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,

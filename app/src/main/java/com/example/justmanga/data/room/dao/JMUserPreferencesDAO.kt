@@ -1,25 +1,29 @@
 package com.example.justmanga.data.room.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.Query
+import com.example.justmanga.data.room.entity.LikedManga
+import com.example.justmanga.data.room.entity.RecentManga
 
 @Dao
 interface JMUserPreferencesDAO {
     @Query("SELECT theme_color FROM userPreferences")
     fun getThemeColor(): Int
 
-    @Query("SELECT recent_manga FROM userPreferences")
+    @Query("SELECT manga_id FROM RecentManga")
     fun getRecentManga(): List<String>
 
-    @Query("SELECT liked_manga FROM userPreferences")
+    @Query("SELECT manga_id FROM LikedManga")
     fun getLikedManga(): List<String>
 
-    @Query("SELECT theme_color FROM userPreferences")
-    fun addRecentManga()
+    @Insert
+    fun addRecentManga(manga_id: RecentManga)
 
-    @Query("SELECT theme_color FROM userPreferences")
-    fun addLikedManga()
+    @Insert
+    fun addLikedManga(manga_id: LikedManga)
 
-    @Query("SELECT theme_color FROM userPreferences")
-    fun deleteLikedManga()
+    @Delete
+    fun deleteLikedManga(manga_id: LikedManga)
 }

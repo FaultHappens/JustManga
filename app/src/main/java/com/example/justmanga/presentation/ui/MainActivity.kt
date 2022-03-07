@@ -9,6 +9,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.justmanga.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
 
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide(); //hide the title bar
         startKoin{
             modules(com.example.justmanga.domain.koin.modules)
+            androidContext(applicationContext)
         }
 
         setContentView(com.example.justmanga.R.layout.activity_main)

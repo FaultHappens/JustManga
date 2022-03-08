@@ -24,15 +24,11 @@ class MainActivity : AppCompatActivity() {
             androidContext(applicationContext)
         }
 
-        setContentView(com.example.justmanga.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
-        NavigationUI.setupWithNavController(
+        setupWithNavController(
             findViewById<BottomNavigationView>(R.id.bottomNavigationView),
             Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment)
         )
-
-
-
-
     }
 }

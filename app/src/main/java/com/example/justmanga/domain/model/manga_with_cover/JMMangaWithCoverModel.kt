@@ -4,6 +4,6 @@ import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import java.io.Serializable
 
 class JMMangaWithCoverModel(manga: JMMangaModel, coverID: String): Serializable {
-    var manga: JMMangaModel = manga
-    var coverID: String = coverID
+    val manga: JMMangaModel = manga
+    val coverID: String = coverID
 }

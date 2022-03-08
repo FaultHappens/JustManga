@@ -27,10 +27,10 @@ class JMDashboardSearchPageFragment : Fragment() {
         super.onCreate(savedInstanceState)
         getTagList()
 
-        vm.tagLiveData.observe(this, {
+        vm.tagLiveData.observe(this) {
             tagsList = it
             tagsArrayAdapterJM.updateList(tagsList)
-        })
+        }
 
         tagsArrayAdapterJM = activity?.let {
             JMSearchScreenTagsArrayAdapter({

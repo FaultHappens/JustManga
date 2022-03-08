@@ -1,20 +1,16 @@
 package com.example.justmanga.presentation.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.justmanga.R
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
-import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
 import com.example.justmanga.databinding.JmFragmentMangaListBinding
-import com.example.justmanga.presentation.adapter.JMMangaInfoChaptersRVAdapter
 import com.example.justmanga.presentation.adapter.JMMangaListRVAdapter
-import com.example.justmanga.presentation.vm.JMMangaInfoVM
 import com.example.justmanga.presentation.vm.JMMangaListVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -32,10 +28,6 @@ class JMMangaListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        vm.mangaChaptersListLiveData.observe(this, {
-//            mangaChaptersList = it
-//            chaptersRVAdapterJM.updateList(mangaChaptersList)
-//        })
 
         mangaRVAdapter = JMMangaListRVAdapter{
             val action = JMMangaListFragmentDirections.actionJMMangaListFragmentToJMMangaDetailsFragment(it)

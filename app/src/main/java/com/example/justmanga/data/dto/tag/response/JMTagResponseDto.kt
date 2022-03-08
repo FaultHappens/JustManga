@@ -1,9 +1,5 @@
 package com.example.justmanga.data.dto.tag.response
 
-import android.os.Parcelable
-import com.example.justmanga.data.dto.manga.response.Attributes
-import com.example.justmanga.data.dto.manga.response.Relationship
-
 data class JMTagResponseDto(
     val `data`: List<JMTagModel>,
     val limit: Int,

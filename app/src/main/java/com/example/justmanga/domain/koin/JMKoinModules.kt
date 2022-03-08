@@ -29,6 +29,8 @@ import com.example.justmanga.presentation.vm.JMDashboardSearchPageVM
 import com.example.justmanga.presentation.vm.JMMangaInfoVM
 import com.example.justmanga.presentation.vm.JMMangaListVM
 import okhttp3.OkHttpClient
+import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -62,7 +64,7 @@ val modules = module {
     single<JMChapterRepository> { JMChapterRepositoryImpl(get(), get()) }
 
 
-    viewModel { JMDashboardHomePageVM(get(), get()) }
+    viewModel { JMDashboardHomePageVM(androidApplication(), get(), get()) }
     viewModel { JMDashboardSearchPageVM(get()) }
     viewModel { JMMangaInfoVM(get()) }
     viewModel { JMMangaListVM(get()) }

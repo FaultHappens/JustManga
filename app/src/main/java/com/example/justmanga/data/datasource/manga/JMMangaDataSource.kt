@@ -6,7 +6,7 @@ import retrofit2.Response
 interface JMMangaDataSource {
     suspend fun getAllManga(): Response<JMMangaResponseDto>
 
-    suspend fun searchManga(qeuryMap: Map<String, Any>): Response<JMMangaResponseDto>
+    suspend fun searchMangaWithID(ids: List<String>): Response<JMMangaResponseDto>
 
     suspend fun getRandomManga(): Response<JMMangaResponseDto>
 }

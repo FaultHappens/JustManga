@@ -12,8 +12,8 @@ class JMMangaDataSourceImpl(
         return mangaApiService.getAllManga()
     }
 
-    override suspend fun searchManga(queryMap: Map<String, Any>): Response<JMMangaResponseDto> {
-        return mangaApiService.searchManga(queryMap)
+    override suspend fun searchMangaWithID(ids: List<String>): Response<JMMangaResponseDto> {
+        return mangaApiService.searchMangaWithID(ids)
     }
 
     override suspend fun getRandomManga(): Response<JMMangaResponseDto> {

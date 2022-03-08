@@ -17,7 +17,7 @@ interface JMMangaApiService {
 
 
     @GET("manga")
-    suspend fun searchManga(
-        @QueryMap() queryMap: Map<String, Any>
+    suspend fun searchMangaWithID(
+        @Query("ids[]") ids: List<String>
     ): Response<JMMangaResponseDto>
 }

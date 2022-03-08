@@ -9,17 +9,24 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.justmanga.R
-import com.example.justmanga.data.dto.manga.response.JMMangaModel
+import com.example.justmanga.data.room.dao.JMUserPreferencesDAO
+import com.example.justmanga.data.room.db.JMUserPreferencesDB
+import com.example.justmanga.data.room.entity.RecentManga
 import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
 import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
 import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -42,39 +49,63 @@ class JMDashboardHomePageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         getFavouriteGenres()
         getPopularMangas()
-        getRecentMangas()
         getNewMangas()
-        vm.popularMangaListLiveData.observe(this, {
+        vm.popularMangaListLiveData.observe(this) {
             popularMangasList = it
             popularMangasRVAdapter.updateList(popularMangasList)
-        })
-        vm.recentMangaListLiveData.observe(this, {
+        }
+        vm.recentMangaListLiveData.observe(this) {
             Log.d("observer", it.toString())
             recentMangasList = it
             recentMangasRVAdapter.updateList(recentMangasList)
-        })
-        vm.newMangaListLiveData.observe(this, {
+        }
+        vm.newMangaListLiveData.observe(this) {
             newMangasList = it
             newMangasRVAdapter.updateList(newMangasList)
-        })
+        }
         btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
             Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
         }
         popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
+            addRecentManga(item.manga.id)
+            val action =
+                JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
+                    item
+                )
             findNavController().navigate(action)
         }
         recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
+            addRecentManga(item.manga.id)
+            val action =
+                JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
+                    item
+                )
             findNavController().navigate(action)
         }
         newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
-            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
+            addRecentManga(item.manga.id)
+            val action =
+                JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
+                    item
+                )
             findNavController().navigate(action)
         }
         btnsRVAdapter.submitList(btnsList)
+
+    }
+
+    private fun addRecentManga(manga_id: String) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    vm.dao.addRecentManga(RecentManga(manga_id))
+                }catch(e: Exception){
+                }
+            }
+        }
 
     }
 
@@ -84,38 +115,47 @@ class JMDashboardHomePageFragment : Fragment() {
     ): View {
         binding = JmFragmentDashboardHomePageBinding.inflate(layoutInflater)
         setWelcomingText()
+        getRecentMangas()
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.popularMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        binding.popularMangasRV.layoutManager =
+            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
         binding.popularMangasRV.adapter = popularMangasRVAdapter
-        
-        binding.newMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.newMangasRV.layoutManager =
+            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
         binding.newMangasRV.adapter = newMangasRVAdapter
-        
-        binding.recentMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+
+        val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        recentMangaLayoutManager.stackFromEnd = true
+        recentMangaLayoutManager.reverseLayout = true
+        binding.recentMangasRV.layoutManager = recentMangaLayoutManager
         binding.recentMangasRV.adapter = recentMangasRVAdapter
 
         binding.btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
         binding.btnsLV.adapter = btnsRVAdapter
 
-        binding.profileBttn.setOnClickListener{
+        binding.profileBttn.setOnClickListener {
             it.findNavController().navigate(R.id.JMDashboardProfilePageFragment)
         }
     }
 
     private fun getFavouriteGenres() {
-        val drawable = ContextCompat.getDrawable(layoutInflater.context, R.drawable.jm_main_screen_btns_temp_holder)
+        val drawable = ContextCompat.getDrawable(
+            layoutInflater.context,
+            R.drawable.jm_main_screen_btns_temp_holder
+        )
         val bitmap = drawable?.let {
             Bitmap.createBitmap(
                 it.intrinsicWidth,
                 it.intrinsicHeight, Bitmap.Config.ARGB_8888
             )
         }
-        if (bitmap != null){
+        if (bitmap != null) {
             btnsList.add(Pair(bitmap, "Liked Manga"))
             btnsList.add(Pair(bitmap, "Romance"))
             btnsList.add(Pair(bitmap, "Isekai"))
@@ -130,6 +170,11 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getRecentMangas() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val recentManga = vm.dao.getRecentManga()
+            }
+        }
         vm.updateRecentMangaList()
     }
 

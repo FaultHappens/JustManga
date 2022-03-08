@@ -35,7 +35,7 @@ class JMDashboardHomePageFragment : Fragment() {
 
     private lateinit var binding: JmFragmentDashboardHomePageBinding
 
-    private lateinit var btnsRVAdapterJM: JMMainScreenButtonsRVAdapter
+    private lateinit var btnsRVAdapter: JMMainScreenButtonsRVAdapter
     private lateinit var popularMangasRVAdapter: JMMainScreenHorizontalRVAdapter
     private lateinit var recentMangasRVAdapter: JMMainScreenHorizontalRVAdapter
     private lateinit var newMangasRVAdapter: JMMainScreenHorizontalRVAdapter
@@ -63,10 +63,10 @@ class JMDashboardHomePageFragment : Fragment() {
             newMangasList = it
             newMangasRVAdapter.updateList(newMangasList)
         }
-        btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
+        btnsRVAdapter = JMMainScreenButtonsRVAdapter { item ->
             findNavController().navigate(R.id.JMMangaListFragment)
         }
-        popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+        popularMangasRVAdapter = JMMainScreenHorizontalRVAdapter { item ->
             addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
@@ -74,7 +74,7 @@ class JMDashboardHomePageFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-        recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+        recentMangasRVAdapter = JMMainScreenHorizontalRVAdapter { item ->
             addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
@@ -82,7 +82,7 @@ class JMDashboardHomePageFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-        newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+        newMangasRVAdapter = JMMainScreenHorizontalRVAdapter { item ->
             addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
@@ -90,7 +90,7 @@ class JMDashboardHomePageFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-        btnsRVAdapterJM.submitList(btnsList)
+        btnsRVAdapter.submitList(btnsList)
 
     }
 
@@ -121,19 +121,19 @@ class JMDashboardHomePageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
             popularMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-            popularMangasRV.adapter = popularMangasRVAdapterJM
+            popularMangasRV.adapter = popularMangasRVAdapter
 
             newMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-            newMangasRV.adapter = newMangasRVAdapterJM
+            newMangasRV.adapter = newMangasRVAdapter
 
             val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
             recentMangaLayoutManager.stackFromEnd = true
             recentMangaLayoutManager.reverseLayout = true
             recentMangasRV.layoutManager = recentMangaLayoutManager
-            recentMangasRV.adapter = recentMangasRVAdapterJM
+            recentMangasRV.adapter = recentMangasRVAdapter
 
             btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
-            btnsLV.adapter = btnsRVAdapterJM
+            btnsLV.adapter = btnsRVAdapter
 
             profileBttn.setOnClickListener {
                 it.findNavController().navigate(R.id.JMDashboardProfilePageFragment)

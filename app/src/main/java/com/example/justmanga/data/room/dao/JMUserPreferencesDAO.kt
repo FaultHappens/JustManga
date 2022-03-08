@@ -1,9 +1,6 @@
 package com.example.justmanga.data.room.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.justmanga.data.room.entity.LikedManga
 import com.example.justmanga.data.room.entity.RecentManga
 
@@ -18,7 +15,7 @@ interface JMUserPreferencesDAO {
     @Query("SELECT manga_id FROM LikedManga")
     fun getLikedManga(): List<String>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addRecentManga(manga_id: RecentManga)
 
     @Insert

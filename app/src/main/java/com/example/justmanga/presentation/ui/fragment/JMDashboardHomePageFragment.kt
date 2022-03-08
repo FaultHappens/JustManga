@@ -52,7 +52,6 @@ class JMDashboardHomePageFragment : Fragment() {
 
         getFavouriteGenres()
         getPopularMangas()
-        getRecentMangas()
         getNewMangas()
         vm.popularMangaListLiveData.observe(this) {
             popularMangasList = it
@@ -116,6 +115,7 @@ class JMDashboardHomePageFragment : Fragment() {
     ): View {
         binding = JmFragmentDashboardHomePageBinding.inflate(layoutInflater)
         setWelcomingText()
+        getRecentMangas()
         return binding.root
 
     }
@@ -130,8 +130,10 @@ class JMDashboardHomePageFragment : Fragment() {
             LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
         binding.newMangasRV.adapter = newMangasRVAdapter
 
-        binding.recentMangasRV.layoutManager =
-            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        recentMangaLayoutManager.stackFromEnd = true
+        recentMangaLayoutManager.reverseLayout = true
+        binding.recentMangasRV.layoutManager = recentMangaLayoutManager
         binding.recentMangasRV.adapter = recentMangasRVAdapter
 
         binding.btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)

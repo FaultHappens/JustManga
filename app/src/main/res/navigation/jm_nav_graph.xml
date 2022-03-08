@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/JMDashboardHomePageFragment">
+
+    <fragment
+        android:id="@+id/JMDashboardHomePageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardHomePageFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/jm_fragment_dashboard_home_page" >
+        <action
+            android:id="@+id/action_JMDashboardHomePageFragment_to_JMMangaDetailsFragment"
+            app:destination="@id/JMMangaDetailsFragment" />
+        <action
+            android:id="@+id/action_JMDashboardHomePageFragment_to_JMDashboardProfilePageFragment"
+            app:destination="@id/JMDashboardProfilePageFragment" />
+        <action
+            android:id="@+id/action_JMDashboardHomePageFragment_to_JMSettingsFragment"
+            app:destination="@id/JMSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMDashboardSearchPageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardSearchPageFragment"
+        android:label="fragment_jm_dashboard_search_page"
+        tools:layout="@layout/jm_fragment_dashboard_search_page" >
+        <action
+            android:id="@+id/action_JMDashboardSearchPageFragment_to_JMMangaListFragment"
+            app:destination="@id/JMMangaListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMDashboardProfilePageFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMDashboardProfilePageFragment"
+        android:label="fragment_jm_dashboard_profile_page"
+        tools:layout="@layout/jm_fragment_dashboard_profile_page" />
+    <fragment
+        android:id="@+id/JMMangaDetailsFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMMangaInfoFragment"
+        android:label="fragment_jm_manga_info"
+        tools:layout="@layout/jm_fragment_manga_info" >
+        <argument
+            android:name="mangaWithCoverModel"
+            app:argType="com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMMangaListFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMMangaListFragment"
+        android:label="fragment_jm_manga_list"
+        tools:layout="@layout/jm_fragment_manga_list" >
+        <action
+            android:id="@+id/action_JMMangaListFragment_to_JMMangaDetailsFragment"
+            app:destination="@id/JMMangaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/JMSettingsFragment"
+        android:name="com.example.justmanga.presentation.ui.fragment.JMSettingsFragment"
+        android:label="fragment_j_m_settings"
+        tools:layout="@layout/jm_fragment_settings" />
+</navigation>

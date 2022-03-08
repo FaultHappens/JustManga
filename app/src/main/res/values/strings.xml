@@ -14,4 +14,14 @@
     <string name="your_recent_manga">Your Recent Manga</string>
     <string name="new_manga">New Manga</string>
     <string name="more">more..</string>
+    <string name="author">Author</string>
+    <string name="title">Title</string>
+    <string name="tags">Tags</string>
+    <string name="alternative">Alternative</string>
+    <string name="artist">Artist</string>
+    <string name="status">Status</string>
+    <string name="genres">Genres</string>
+    <string name="chapter_number">Chp. %chp</string>
+    <string name="pages_number">$pgs Pgs.</string>
+    <string name="volume">Vol %vol.</string>
 </resources>

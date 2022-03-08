@@ -2,17 +2,32 @@ package com.example.justmanga.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.justmanga.R
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
+import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmChapterCardViewBinding
-import org.koin.core.component.getScopeId
+import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit) :
-    RecyclerView.Adapter<MangaInfoChaptersRVAdapter.ChapterViewHolder>() {
+class JMMangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit) :
+    PagingDataAdapter<JMChapterModel, JMMangaInfoChaptersRVAdapter.ChapterViewHolder>(DiffUtilCallBack) {
 
     private var chaptersList: List<JMChapterModel> = listOf()
+
+    object DiffUtilCallBack : DiffUtil.ItemCallback<JMChapterModel>() {
+        override fun areItemsTheSame(oldItem: JMChapterModel, newItem: JMChapterModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: JMChapterModel, newItem: JMChapterModel): Boolean {
+            return oldItem == newItem
+        }
+    }
 
     class ChapterViewHolder(private val binding: JmChapterCardViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data: JMChapterModel) {
@@ -40,16 +55,13 @@ class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit)
         }
     }
 
-    fun updateList(newChaptersList: List<JMChapterModel>){
-        chaptersList = newChaptersList
-        notifyItemRangeChanged(0, chaptersList.size)
+    override fun onBindViewHolder(holder: ChapterViewHolder, position: Int) {
+        holder.itemView.setOnClickListener{listener(getItem(position)!!)}
+        getItem(position)?.let { holder.bind(it) }
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ChapterViewHolder {
-        return MangaInfoChaptersRVAdapter.ChapterViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChapterViewHolder {
+        return ChapterViewHolder(
             JmChapterCardViewBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -58,15 +70,5 @@ class MangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit)
         )
     }
 
-    override fun onBindViewHolder(
-        holder: MangaInfoChaptersRVAdapter.ChapterViewHolder,
-        position: Int
-    ) {
-        holder.itemView.setOnClickListener{listener(chaptersList[position])}
-        holder.bind(chaptersList[position])
-    }
 
-    override fun getItemCount(): Int {
-        return chaptersList.size
-    }
 }

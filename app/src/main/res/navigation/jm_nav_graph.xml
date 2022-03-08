@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_JMDashboardHomePageFragment_to_JMSettingsFragment"
             app:destination="@id/JMSettingsFragment" />
+        <action
+            android:id="@+id/action_JMDashboardHomePageFragment_to_JMMangaListFragment"
+            app:destination="@id/JMMangaListFragment" />
     </fragment>
     <fragment
         android:id="@+id/JMDashboardSearchPageFragment"

@@ -1,8 +1,11 @@
 package com.example.justmanga.presentation.vm
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.domain.repository.chapter.JMChapterRepository
@@ -14,13 +17,11 @@ class JMMangaInfoVM(
     private val chapterRepository: JMChapterRepository
 ) : ViewModel() {
 
-    val mangaChaptersListLiveData: MutableLiveData<List<JMChapterModel>> by lazy {
-        MutableLiveData<List<JMChapterModel>>()
-    }
+    lateinit var mangaChaptersListLiveData: LiveData<PagingData<JMChapterModel>>
 
     fun updateMangaChaptersList(mangaID: String){
         viewModelScope.launch {
-            mangaChaptersListLiveData.value = chapterRepository.getAllMangaChapters(mangaID).data
+            mangaChaptersListLiveData = chapterRepository.getAllMangaChapters(mangaID).cachedIn(viewModelScope)
         }
     }
 }

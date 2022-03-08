@@ -2,11 +2,9 @@ package com.example.justmanga.presentation.ui.fragment
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -21,8 +19,8 @@ import com.example.justmanga.data.room.db.JMUserPreferencesDB
 import com.example.justmanga.data.room.entity.RecentManga
 import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
-import com.example.justmanga.presentation.adapter.MainScreenButtonsRVAdapter
-import com.example.justmanga.presentation.adapter.MainScreenHorizontalRVAdapter
+import com.example.justmanga.presentation.adapter.JMMainScreenButtonsRVAdapter
+import com.example.justmanga.presentation.adapter.JMMainScreenHorizontalRVAdapter
 import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,10 +35,10 @@ class JMDashboardHomePageFragment : Fragment() {
 
     private lateinit var binding: JmFragmentDashboardHomePageBinding
 
-    private lateinit var btnsRVAdapter: MainScreenButtonsRVAdapter
-    private lateinit var popularMangasRVAdapter: MainScreenHorizontalRVAdapter
-    private lateinit var recentMangasRVAdapter: MainScreenHorizontalRVAdapter
-    private lateinit var newMangasRVAdapter: MainScreenHorizontalRVAdapter
+    private lateinit var btnsRVAdapterJM: JMMainScreenButtonsRVAdapter
+    private lateinit var popularMangasRVAdapter: JMMainScreenHorizontalRVAdapter
+    private lateinit var recentMangasRVAdapter: JMMainScreenHorizontalRVAdapter
+    private lateinit var newMangasRVAdapter: JMMainScreenHorizontalRVAdapter
 
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
     private var popularMangasList: List<JMMangaWithCoverModel> = listOf()
@@ -58,7 +56,6 @@ class JMDashboardHomePageFragment : Fragment() {
             popularMangasRVAdapter.updateList(popularMangasList)
         }
         vm.recentMangaListLiveData.observe(this) {
-            Log.d("observer", it.toString())
             recentMangasList = it
             recentMangasRVAdapter.updateList(recentMangasList)
         }
@@ -67,7 +64,7 @@ class JMDashboardHomePageFragment : Fragment() {
             newMangasRVAdapter.updateList(newMangasList)
         }
         btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
-            Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.JMMangaListFragment)
         }
         popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
             addRecentManga(item.manga.id)
@@ -93,7 +90,7 @@ class JMDashboardHomePageFragment : Fragment() {
                 )
             findNavController().navigate(action)
         }
-        btnsRVAdapter.submitList(btnsList)
+        btnsRVAdapterJM.submitList(btnsList)
 
     }
 
@@ -122,26 +119,39 @@ class JMDashboardHomePageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.popularMangasRV.layoutManager =
-            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        binding.popularMangasRV.adapter = popularMangasRVAdapter
+        with(binding) {
+            popularMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+            popularMangasRV.adapter = popularMangasRVAdapterJM
 
-        binding.newMangasRV.layoutManager =
-            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        binding.newMangasRV.adapter = newMangasRVAdapter
+            newMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+            newMangasRV.adapter = newMangasRVAdapterJM
 
-        val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
-        recentMangaLayoutManager.stackFromEnd = true
-        recentMangaLayoutManager.reverseLayout = true
-        binding.recentMangasRV.layoutManager = recentMangaLayoutManager
-        binding.recentMangasRV.adapter = recentMangasRVAdapter
+            val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+            recentMangaLayoutManager.stackFromEnd = true
+            recentMangaLayoutManager.reverseLayout = true
+            recentMangasRV.layoutManager = recentMangaLayoutManager
+            recentMangasRV.adapter = recentMangasRVAdapterJM
 
-        binding.btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
-        binding.btnsLV.adapter = btnsRVAdapter
+            btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
+            btnsLV.adapter = btnsRVAdapterJM
 
-        binding.profileBttn.setOnClickListener {
-            it.findNavController().navigate(R.id.JMDashboardProfilePageFragment)
+            profileBttn.setOnClickListener {
+                it.findNavController().navigate(R.id.JMDashboardProfilePageFragment)
+            }
+            morePopularMangasBttn.setOnClickListener {
+                it.findNavController().navigate(R.id.JMMangaListFragment)
+            }
+
+            moreNewMangasBttn.setOnClickListener {
+                it.findNavController().navigate(R.id.JMMangaListFragment)
+            }
+
+            moreRecentMangasBttn.setOnClickListener {
+                it.findNavController().navigate(R.id.JMMangaListFragment)
+            }
+
         }
+
     }
 
     private fun getFavouriteGenres() {

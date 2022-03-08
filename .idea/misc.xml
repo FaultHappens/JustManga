@@ -32,7 +32,11 @@
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_chapter_card_view.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_dashboard_home_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_manga_info.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_manga_list.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_button_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_manga_list_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_rv_item_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_manga_list_page_card_view.xml" value="0.33" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/liked_button_card.xml" value="0.25" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/main_fregment_manga_list_card.xml" value="0.25" />
         <entry key="..\:/Users/tskit/AndroidStudioProjects/JustManga/app/src/main/res/layout/main_screen_button_card.xml" value="0.33" />

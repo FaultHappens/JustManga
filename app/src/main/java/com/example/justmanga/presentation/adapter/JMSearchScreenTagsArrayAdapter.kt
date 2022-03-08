@@ -12,9 +12,9 @@ import com.example.justmanga.R
 import com.example.justmanga.data.dto.tag.response.JMTagModel
 import com.example.justmanga.databinding.JmSearchTagCardBinding
 
-class SearchScreenTagsArrayAdapter(private val listener: (JMTagModel) -> Unit,
-                                   context: Context,
-                                   private val resource: Int
+class JMSearchScreenTagsArrayAdapter(private val listener: (JMTagModel) -> Unit,
+                                     context: Context,
+                                     private val resource: Int
 ): ArrayAdapter<JMTagModel>(context, resource) {
 
     private var tagList: List<JMTagModel> = listOf()

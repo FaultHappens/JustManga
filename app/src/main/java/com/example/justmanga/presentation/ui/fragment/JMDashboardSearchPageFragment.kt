@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.justmanga.R
 import com.example.justmanga.data.dto.tag.response.JMTagModel
 import com.example.justmanga.databinding.JmFragmentDashboardSearchPageBinding
-import com.example.justmanga.presentation.adapter.SearchScreenTagsArrayAdapter
+import com.example.justmanga.presentation.adapter.JMSearchScreenTagsArrayAdapter
 import com.example.justmanga.presentation.vm.JMDashboardSearchPageVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +17,7 @@ class JMDashboardSearchPageFragment : Fragment() {
 
     private val vm: JMDashboardSearchPageVM by viewModel()
 
-    private lateinit var tagsArrayAdapter: SearchScreenTagsArrayAdapter
+    private lateinit var tagsArrayAdapterJM: JMSearchScreenTagsArrayAdapter
 
     private var tagsList: List<JMTagModel> = listOf()
 
@@ -29,11 +29,11 @@ class JMDashboardSearchPageFragment : Fragment() {
 
         vm.tagLiveData.observe(this, {
             tagsList = it
-            tagsArrayAdapter.updateList(tagsList)
+            tagsArrayAdapterJM.updateList(tagsList)
         })
 
-        tagsArrayAdapter = activity?.let {
-            SearchScreenTagsArrayAdapter({
+        tagsArrayAdapterJM = activity?.let {
+            JMSearchScreenTagsArrayAdapter({
                 Toast.makeText(layoutInflater.context, "Click", Toast.LENGTH_SHORT).show()
             }, it, R.layout.jm_search_tag_card)
         }!!
@@ -52,7 +52,7 @@ class JMDashboardSearchPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tagsGridView.adapter = tagsArrayAdapter
+        binding.tagsGridView.adapter = tagsArrayAdapterJM
     }
 
     private fun getTagList(){

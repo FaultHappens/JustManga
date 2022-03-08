@@ -19,8 +19,10 @@ class JMMangaRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun searchManga(queryMap: Map<String, Any>): Response<JMMangaResponse> {
-        TODO("Not yet implemented")
+    override suspend fun searchMangaWithID(ids: List<String>): JMMangaResponse {
+        val response = mangaDataSource.searchMangaWithID(ids)
+        Log.d("RESPONSE", response.toString())
+        return mangaResponseMapper.mapToModel(response)
     }
 
 }

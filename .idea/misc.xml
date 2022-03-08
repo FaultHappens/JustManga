@@ -18,6 +18,8 @@
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_dashboard_search_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_fragment_manga_info.xml" value="0.33" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_button_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_manga_list_card.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_home_page_rv_item_card.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/jm_search_tag_card.xml" value="0.33" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/liked_button_card.xml" value="0.33" />
         <entry key="..\:/Users/Dimitri/AndroidStudioProjects/JustManga/app/src/main/res/layout/main_fregment_manga_list_card.xml" value="0.36666666666666664" />
@@ -42,7 +44,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

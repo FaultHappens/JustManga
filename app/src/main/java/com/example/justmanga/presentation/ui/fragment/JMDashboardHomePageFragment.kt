@@ -7,16 +7,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.justmanga.R
+import com.example.justmanga.data.room.dao.JMUserPreferencesDAO
+import com.example.justmanga.data.room.db.JMUserPreferencesDB
+import com.example.justmanga.data.room.entity.RecentManga
 import com.example.justmanga.databinding.JmFragmentDashboardHomePageBinding
 import com.example.justmanga.domain.model.manga_with_cover.JMMangaWithCoverModel
 import com.example.justmanga.presentation.adapter.JMMainScreenButtonsRVAdapter
 import com.example.justmanga.presentation.adapter.JMMainScreenHorizontalRVAdapter
 import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -28,9 +36,9 @@ class JMDashboardHomePageFragment : Fragment() {
     private lateinit var binding: JmFragmentDashboardHomePageBinding
 
     private lateinit var btnsRVAdapterJM: JMMainScreenButtonsRVAdapter
-    private lateinit var popularMangasRVAdapterJM: JMMainScreenHorizontalRVAdapter
-    private lateinit var recentMangasRVAdapterJM: JMMainScreenHorizontalRVAdapter
-    private lateinit var newMangasRVAdapterJM: JMMainScreenHorizontalRVAdapter
+    private lateinit var popularMangasRVAdapter: JMMainScreenHorizontalRVAdapter
+    private lateinit var recentMangasRVAdapter: JMMainScreenHorizontalRVAdapter
+    private lateinit var newMangasRVAdapter: JMMainScreenHorizontalRVAdapter
 
     private var btnsList: MutableList<Pair<Bitmap, String>> = mutableListOf()
     private var popularMangasList: List<JMMangaWithCoverModel> = listOf()
@@ -39,40 +47,43 @@ class JMDashboardHomePageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         getFavouriteGenres()
         getPopularMangas()
-        getRecentMangas()
         getNewMangas()
-        vm.popularMangaListLiveData.observe(this, {
+        vm.popularMangaListLiveData.observe(this) {
             popularMangasList = it
-            popularMangasRVAdapterJM.updateList(popularMangasList)
-        })
-        vm.recentMangaListLiveData.observe(this, {
+            popularMangasRVAdapter.updateList(popularMangasList)
+        }
+        vm.recentMangaListLiveData.observe(this) {
             recentMangasList = it
-            recentMangasRVAdapterJM.updateList(recentMangasList)
-        })
-        vm.newMangaListLiveData.observe(this, {
+            recentMangasRVAdapter.updateList(recentMangasList)
+        }
+        vm.newMangaListLiveData.observe(this) {
             newMangasList = it
-            newMangasRVAdapterJM.updateList(newMangasList)
-        })
-        btnsRVAdapterJM = JMMainScreenButtonsRVAdapter { item ->
+            newMangasRVAdapter.updateList(newMangasList)
+        }
+        btnsRVAdapter = MainScreenButtonsRVAdapter { item ->
             findNavController().navigate(R.id.JMMangaListFragment)
         }
-        popularMangasRVAdapterJM = JMMainScreenHorizontalRVAdapter { item ->
+        popularMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
                     item
                 )
             findNavController().navigate(action)
         }
-        recentMangasRVAdapterJM = JMMainScreenHorizontalRVAdapter { item ->
+        recentMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
                     item
                 )
             findNavController().navigate(action)
         }
-        newMangasRVAdapterJM = JMMainScreenHorizontalRVAdapter { item ->
+        newMangasRVAdapter = MainScreenHorizontalRVAdapter { item ->
+            addRecentManga(item.manga.id)
             val action =
                 JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
                     item
@@ -83,12 +94,25 @@ class JMDashboardHomePageFragment : Fragment() {
 
     }
 
+    private fun addRecentManga(manga_id: String) {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                try {
+                    vm.dao.addRecentManga(RecentManga(manga_id))
+                }catch(e: Exception){
+                }
+            }
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = JmFragmentDashboardHomePageBinding.inflate(layoutInflater)
         setWelcomingText()
+        getRecentMangas()
         return binding.root
 
     }
@@ -102,7 +126,10 @@ class JMDashboardHomePageFragment : Fragment() {
             newMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
             newMangasRV.adapter = newMangasRVAdapterJM
 
-            recentMangasRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+            val recentMangaLayoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.HORIZONTAL, false)
+            recentMangaLayoutManager.stackFromEnd = true
+            recentMangaLayoutManager.reverseLayout = true
+            recentMangasRV.layoutManager = recentMangaLayoutManager
             recentMangasRV.adapter = recentMangasRVAdapterJM
 
             btnsLV.layoutManager = GridLayoutManager(activity?.applicationContext, 2)
@@ -122,6 +149,7 @@ class JMDashboardHomePageFragment : Fragment() {
             moreRecentMangasBttn.setOnClickListener {
                 it.findNavController().navigate(R.id.JMMangaListFragment)
             }
+
         }
 
     }
@@ -152,6 +180,11 @@ class JMDashboardHomePageFragment : Fragment() {
     }
 
     private fun getRecentMangas() {
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val recentManga = vm.dao.getRecentManga()
+            }
+        }
         vm.updateRecentMangaList()
     }
 

@@ -2,22 +2,16 @@ package com.example.justmanga.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.justmanga.R
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
-import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmChapterCardViewBinding
-import com.example.justmanga.databinding.JmHomePageRvItemCardBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
 class JMMangaInfoChaptersRVAdapter(private val listener: (JMChapterModel) -> Unit) :
     PagingDataAdapter<JMChapterModel, JMMangaInfoChaptersRVAdapter.ChapterViewHolder>(DiffUtilCallBack) {
-
-    private var chaptersList: List<JMChapterModel> = listOf()
 
     object DiffUtilCallBack : DiffUtil.ItemCallback<JMChapterModel>() {
         override fun areItemsTheSame(oldItem: JMChapterModel, newItem: JMChapterModel): Boolean {

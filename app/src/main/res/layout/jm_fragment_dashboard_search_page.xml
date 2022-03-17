@@ -64,8 +64,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
-    <GridView
-        android:id="@+id/tagsGridView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tagsRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

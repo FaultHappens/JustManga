@@ -165,13 +165,31 @@
                 app:layout_constraintTop_toTopOf="@+id/textView12"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="List of Manga Genres" />
+            <LinearLayout
+                android:id="@+id/chapterSortBttn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/jm_button_bg"
+                android:gravity="center"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/genresTV">
+
+                <ImageView
+                    android:id="@+id/chapterSortBttnIcon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/jm_asc_button_icon"
+                    app:tint="@color/white" />
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/chaptersRV"
                 android:layout_width="match_parent"
                 android:layout_height="600dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintTop_toBottomOf="@+id/genresTV"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/chapterSortBttn"
                 tools:layout_editor_absoluteX="0dp" />
 
 

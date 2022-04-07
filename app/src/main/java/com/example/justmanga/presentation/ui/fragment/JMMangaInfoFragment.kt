@@ -4,24 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.example.justmanga.R
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
+import com.example.justmanga.data.enum.ChapterSortType
 import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
 import com.example.justmanga.presentation.adapter.JMMangaInfoChaptersRVAdapter
 import com.example.justmanga.presentation.vm.JMMangaInfoVM
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class JMMangaInfoFragment : Fragment() {
 
     private val vm: JMMangaInfoVM by viewModel()
+
+    private var chapterSort: ChapterSortType = ChapterSortType.ASCENDING
 
     private lateinit var binding: JmFragmentMangaInfoBinding
     private lateinit var manga: JMMangaModel
@@ -56,15 +59,31 @@ class JMMangaInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.chaptersRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
+        binding.chaptersRV.layoutManager =
+            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
         binding.chaptersRV.adapter = chaptersRVAdapter
         loadMangaInfo()
         loadMangaChapters()
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            vm.mangaChaptersListLiveData.observe(viewLifecycleOwner, {
-                chaptersRVAdapter.submitData(lifecycle, it)
-            })
+        vm.mangaChaptersListLiveData.observe(viewLifecycleOwner) {
+            chaptersRVAdapter.submitData(lifecycle, it)
+        }
+        binding.chapterSortBttn.setOnClickListener {
+            when(chapterSort){
+                ChapterSortType.ASCENDING -> {
+                    chapterSort = ChapterSortType.DESCENDING
+                    binding.chapterSortBttnIcon.setImageDrawable(activity?.applicationContext?.let { it1 ->
+                        getDrawable(
+                            it1, R.drawable.jm_desc_button_icon)
+                    })
+                }
+                ChapterSortType.DESCENDING -> {
+                    chapterSort = ChapterSortType.DESCENDING
+                    binding.chapterSortBttnIcon.setImageDrawable(activity?.applicationContext?.let { it1 ->
+                        getDrawable(
+                            it1, R.drawable.jm_asc_button_icon)
+                    })
+                }
+            }
         }
 
 
@@ -75,7 +94,7 @@ class JMMangaInfoFragment : Fragment() {
     }
 
 
-    private fun loadMangaInfo(){
+    private fun loadMangaInfo() {
         val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
         circularProgressDrawable.strokeWidth = 20f
         circularProgressDrawable.centerRadius = 100f
@@ -85,16 +104,16 @@ class JMMangaInfoFragment : Fragment() {
             if (i.en != "null" && i.en != null) {
                 altText += i.en + ", "
             }
-            if (i.ja != "null"&& i.ja != null) {
+            if (i.ja != "null" && i.ja != null) {
                 altText += i.ja + ", "
             }
         }
         var genresText: String = ""
-        for(i in manga.attributes.tags){
+        for (i in manga.attributes.tags) {
             genresText += i.attributes.name.en
-            genresText +=  ", "
+            genresText += ", "
         }
-        with(binding){
+        with(binding) {
             altNamesTV.text = altText
 //            for(i in manga.relationships){
 //                when(i.type){

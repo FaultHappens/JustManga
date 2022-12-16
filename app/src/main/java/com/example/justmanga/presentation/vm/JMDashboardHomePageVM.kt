@@ -47,10 +47,10 @@ class JMDashboardHomePageVM(
             popularMangaListWithCovers.clear()
             val response = jmMangaRepository.getAllManga()
             for(i in response.data){
-                var coverId: String = "noCover"
+                var coverId = "noCover"
                 i.relationships.forEach {
                     if(it.type == "cover_art"){
-                        coverId = it.id
+                        coverId = it.id.toString()
                     }
                 }
                 popularMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))
@@ -87,10 +87,10 @@ class JMDashboardHomePageVM(
                 response = jmMangaRepository.getAllManga()
             }
             for(i in response.data){
-                var coverId: String = "noCover"
+                var coverId = "noCover"
                 i.relationships.forEach {
                     if(it.type == "cover_art"){
-                        coverId = it.id
+                        coverId = it.id.toString()
                     }
                 }
                 recentMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))
@@ -105,10 +105,10 @@ class JMDashboardHomePageVM(
             val response = jmMangaRepository.getAllManga()
 
             for(i in response.data){
-                var coverId: String = "noCover"
+                var coverId = "noCover"
                 i.relationships.forEach {
                     if(it.type == "cover_art"){
-                        coverId = it.id
+                        coverId = it.id.toString()
                     }
                 }
                 newMangaListWithCovers.add(JMMangaWithCoverModel(i, jmCoverRepository.getCover(coverId)))

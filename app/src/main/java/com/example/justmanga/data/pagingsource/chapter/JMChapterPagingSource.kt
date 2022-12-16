@@ -1,11 +1,16 @@
 package com.example.justmanga.data.pagingsource.chapter
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.justmanga.data.apiservice.chapter.JMChapterApiService
 import com.example.justmanga.data.dto.chapter.response.JMChapterModel
+import com.example.justmanga.data.dto.chapter_images.response.Chapter
 import com.example.justmanga.data.mapper.chapter.response.JMChapterResponseMapper
+import com.example.justmanga.domain.model.chapter.request.ChapterOrder
+import com.example.justmanga.domain.model.chapter.request.ChapterRequest
 import com.example.justmanga.domain.model.chapter.response.JMChapterResponse
+import org.json.JSONObject
 
 class JMChapterPagingSource(
     private val chapterApiService: JMChapterApiService,
@@ -20,7 +25,17 @@ class JMChapterPagingSource(
         val position = params.key ?: INITIAL_LOAD_SIZE
         val offset = if (params.key != null) ((position - 1) * NETWORK_PAGE_SIZE) + 1 else INITIAL_LOAD_SIZE
         return try {
-            val jsonResponse = chapterApiService.getAllMangaChapters(offset = offset.toString(), limit = params.loadSize.toString(), mangaID = mangaID)
+
+            val queryMap: Map<String, String> = mapOf("chapter" to "asc")
+
+            val jsonResponse = chapterApiService.getAllMangaChapters(
+                offset = offset.toString(),
+                limit = params.loadSize.toString(),
+                manga = mangaID,
+                translatedLanguage = listOf("en"),
+                ChapterOrder("asc")
+            )
+            Log.d("CHAPTER_RESPONSE", jsonResponse.toString())
             val response = chapterMapper.mapToModel(jsonResponse).data
             val nextKey = if (response.isEmpty()) {
                 null

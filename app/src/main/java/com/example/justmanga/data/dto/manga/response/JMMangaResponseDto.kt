@@ -1,11 +1,13 @@
 package com.example.justmanga.data.dto.manga.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.parcelize.Parcelize
+
 
 data class JMMangaResponseDto(
     @SerializedName("data")
-    val `data`: List<JMMangaModel>,
+    val data: List<JMMangaModel>,
 
     @SerializedName("limit")
     val limit: Int,
@@ -23,101 +25,64 @@ data class JMMangaResponseDto(
     val total: Int
 )
 
+@Parcelize
 data class JMMangaModel(
     val attributes: Attributes,
     val id: String,
     val relationships: List<RelationshipX>,
     val type: String
-)
+): Parcelable
 
+@Parcelize
 data class Attributes(
-    val altTitles: List<AltTitle>,
-    val chapterNumbersResetOnNewVolume: Boolean,
-    val contentRating: String,
-    val createdAt: String,
-    val description: Description,
-    val isLocked: Boolean,
-    val lastChapter: String,
-    val lastVolume: String,
-    val links: Links,
-    val originalLanguage: String,
-    val publicationDemographic: String,
-    val state: String,
-    val status: String,
-    val tags: List<Tag>,
-    val title: Title,
-    val updatedAt: String,
-    val version: Int,
-    val year: Int
-)
+    val altTitles: List<Map<String?, String?>>?,
+    val createdAt: String?,
+    val description: Map<String?, String?>?,
+    val lastChapter: String?,
+    val lastVolume: String?,
+    val links: Map<String?, String?>?,
+    val originalLanguage: String?,
+    val state: String?,
+    val status: String?,
+    val tags: List<Tag>?,
+    val title: Map<String?, String?>,
+    val updatedAt: String?,
+    val year: Int?
+): Parcelable
 
+@Parcelize
 data class RelationshipX(
-    val attributes: AttributesXXX,
-    val id: String,
-    val related: String,
-    val type: String
-)
+    val id: String?,
+    val related: String?,
+    val type: String?
+): Parcelable
 
-data class AltTitle(
-    val ja: String,
-    val en: String
-)
 
-data class Description(
-    val en: String,
-    val ja: String,
-    val ru: String
-)
-
-data class Links(
-    val al: String,
-    val ap: String,
-    val bw: String,
-    val mu: String,
-    val nu: String,
-    val kt: String,
-    val amz: String,
-    val ebj: String,
-    val mal: String,
-    val cdj: String,
-    val raw: String,
-    val engtl: String,
-)
-
+@Parcelize
 data class Tag(
-    val attributes: AttributesX,
-    val id: String,
-    val relationships: List<Relationship>,
-    val type: String
-)
+    val attributes: AttributesX?,
+    val id: String?,
+    val relationships: List<Relationship>?,
+    val type: String?
+): Parcelable
 
-data class Title(
-    val en: String
-)
-
+@Parcelize
 data class AttributesX(
-    val description: List<DescriptionX>,
-    val group: String,
-    val name: Name,
-    val version: Int
-)
+    val description: List<DescriptionX>?,
+    val group: String?,
+    val name: Map<String?, String?>,
+    val version: Int?
+): Parcelable
 
+@Parcelize
 data class Relationship(
-    val attributes: AttributesXX,
-    val id: String,
-    val related: String,
-    val type: String
-)
+    val id: String?,
+    val related: String?,
+    val type: String?
+): Parcelable
 
+@Parcelize
 data class DescriptionX(
-    val property1: String,
-    val property2: String
-)
-
-data class Name(
-    val en: String
-)
-
-class AttributesXX
-
-class AttributesXXX
+    val property1: String?,
+    val property2: String?
+): Parcelable

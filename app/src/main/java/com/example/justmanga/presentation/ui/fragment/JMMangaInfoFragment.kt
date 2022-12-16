@@ -1,5 +1,6 @@
 package com.example.justmanga.presentation.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.example.justmanga.data.dto.chapter.response.JMChapterModel
 import com.example.justmanga.data.dto.manga.response.JMMangaModel
 import com.example.justmanga.databinding.JmFragmentMangaInfoBinding
 import com.example.justmanga.presentation.adapter.JMMangaInfoChaptersRVAdapter
+import com.example.justmanga.presentation.ui.activity.JMChapterReadActivity
 import com.example.justmanga.presentation.vm.JMMangaInfoVM
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,17 +33,16 @@ class JMMangaInfoFragment : Fragment() {
 
     private lateinit var chaptersRVAdapter: JMMangaInfoChaptersRVAdapter
 
-    private lateinit var mangaChaptersList: List<JMChapterModel>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         manga = args.mangaWithCoverModel.manga
         coverID = args.mangaWithCoverModel.coverID
 
         chaptersRVAdapter = JMMangaInfoChaptersRVAdapter { item ->
-            //TODO: navigation to chapter reading fragment with JMChapterModel argument
-//            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
-//            findNavController().navigate(action)
+            val intent = Intent(context, JMChapterReadActivity::class.java)
+            intent.putExtra("chapterId", item.id)
+            intent.putExtra("chapterNumb", item.attributes.chapter)
+            startActivity(intent)
         }
 
     }
@@ -56,18 +57,18 @@ class JMMangaInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.chaptersRV.layoutManager = LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
-        binding.chaptersRV.adapter = chaptersRVAdapter
         loadMangaInfo()
         loadMangaChapters()
 
+        binding.chaptersRV.layoutManager =
+            LinearLayoutManager(activity?.applicationContext, LinearLayoutManager.VERTICAL, false)
+        binding.chaptersRV.adapter = chaptersRVAdapter
+
         viewLifecycleOwner.lifecycleScope.launch {
-            vm.mangaChaptersListLiveData.observe(viewLifecycleOwner, {
+            vm.mangaChaptersListLiveData.observe(viewLifecycleOwner) {
                 chaptersRVAdapter.submitData(lifecycle, it)
-            })
+            }
         }
-
-
     }
 
     private fun loadMangaChapters() {
@@ -75,26 +76,37 @@ class JMMangaInfoFragment : Fragment() {
     }
 
 
-    private fun loadMangaInfo(){
+    private fun loadMangaInfo() {
         val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
         circularProgressDrawable.strokeWidth = 20f
         circularProgressDrawable.centerRadius = 100f
         circularProgressDrawable.start()
-        var altText = ""
-        for (i in manga.attributes.altTitles) {
-            if (i.en != "null" && i.en != null) {
-                altText += i.en + ", "
-            }
-            if (i.ja != "null"&& i.ja != null) {
-                altText += i.ja + ", "
+        var altText = "NONE"
+
+        if (manga.attributes.altTitles != null) {
+            manga.attributes.altTitles!!.forEach {
+                if (it.containsKey("ja")) {
+                    altText = it["ja"].toString()
+                    return@forEach
+                }
             }
         }
-        var genresText: String = ""
-        for(i in manga.attributes.tags){
-            genresText += i.attributes.name.en
-            genresText +=  ", "
+
+        var description: String = ""
+        if (manga.attributes.description!!.containsKey("en")) {
+            description = manga.attributes.description!!["en"].toString()
         }
-        with(binding){
+
+        var genresText = ""
+        if (manga.attributes.tags != null) {
+            for (i in manga.attributes.tags!!) {
+                genresText += i.attributes?.name!!["en"] ?: "None"
+                genresText += ", "
+            }
+        }
+        with(binding) {
+            mangaNameTV.text = manga.attributes.title["en"]
+            descriptionTV.text = description
             altNamesTV.text = altText
 //            for(i in manga.relationships){
 //                when(i.type){

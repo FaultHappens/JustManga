@@ -27,12 +27,12 @@ class JMMangaListRVAdapter(private val listener: (JMMangaWithCoverModel) -> Unit
                     .centerCrop()
                     .into(mangaImageIV)
 
-                mangaNameTV.text = data.manga.attributes.title.en
+                mangaNameTV.text = data.manga.attributes.title["en"] ?: "None"
                 //TODO: read "total" of manga chapters and insert in chaptersNumbTV
-                mangaDescriptionTV.text = data.manga.attributes.description.en
+                mangaDescriptionTV.text = data.manga.attributes.description!!["en"] ?: "None"
                 var genresText: String = ""
-                for(i in data.manga.attributes.tags){
-                    genresText += i.attributes.name.en
+                for(i in data.manga.attributes.tags!!){
+                    genresText += i.attributes?.name!!["en"] ?: "None"
                     genresText +=  ", "
                 }
                 mangaGenresTV.text = genresText

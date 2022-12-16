@@ -1,6 +1,7 @@
 package com.example.justmanga.domain.koin
 
 import com.example.justmanga.data.apiservice.chapter.JMChapterApiService
+import com.example.justmanga.data.apiservice.chapter_images.JMChapterImagesApiService
 import com.example.justmanga.data.apiservice.cover.JMCoverApiService
 import com.example.justmanga.data.apiservice.manga.JMMangaApiService
 import com.example.justmanga.data.apiservice.tag.JMTagApiService
@@ -11,21 +12,21 @@ import com.example.justmanga.data.datasource.manga.JMMangaDataSourceImpl
 import com.example.justmanga.data.datasource.tag.JMTagDataSource
 import com.example.justmanga.data.datasource.tag.JMTagDataSourceImpl
 import com.example.justmanga.data.mapper.chapter.response.JMChapterResponseMapper
+import com.example.justmanga.data.mapper.chapter_images.response.JMChapterImagesResponseMapper
 import com.example.justmanga.data.mapper.cover.response.JMCoverResponseMapper
 import com.example.justmanga.data.mapper.manga.response.JMMangaResponseMapper
 import com.example.justmanga.data.mapper.tag.response.JMTagResponseMapper
 import com.example.justmanga.data.repository.chapter.JMChapterRepositoryImpl
+import com.example.justmanga.data.repository.chapter_images.JMChapterImagesRepositoryImpl
 import com.example.justmanga.data.repository.cover.JMCoverRepositoryImpl
 import com.example.justmanga.data.repository.manga.JMMangaRepositoryImpl
 import com.example.justmanga.data.repository.tag.JMTagRepositoryImpl
 import com.example.justmanga.domain.repository.chapter.JMChapterRepository
+import com.example.justmanga.domain.repository.chapter_images.JMChapterImagesRepository
 import com.example.justmanga.domain.repository.cover.JMCoverRepository
 import com.example.justmanga.domain.repository.manga.JMMangaRepository
 import com.example.justmanga.domain.repository.tag.JMTagRepository
-import com.example.justmanga.presentation.vm.JMDashboardHomePageVM
-import com.example.justmanga.presentation.vm.JMDashboardSearchPageVM
-import com.example.justmanga.presentation.vm.JMMangaInfoVM
-import com.example.justmanga.presentation.vm.JMMangaListVM
+import com.example.justmanga.presentation.vm.*
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
@@ -42,6 +43,7 @@ val modules = module {
     single { get<Retrofit>().create(JMCoverApiService::class.java) }
     single { get<Retrofit>().create(JMChapterApiService::class.java) }
     single { get<Retrofit>().create(JMTagApiService::class.java) }
+    single { get<Retrofit>().create(JMChapterImagesApiService::class.java) }
 
     //data sources
     single<JMMangaDataSource> { JMMangaDataSourceImpl(get()) }
@@ -54,18 +56,21 @@ val modules = module {
     single { JMTagResponseMapper() }
     single { JMCoverResponseMapper() }
     single { JMChapterResponseMapper() }
+    single { JMChapterImagesResponseMapper() }
 
     // repositories
     single<JMMangaRepository> { JMMangaRepositoryImpl(get(), get()) }
     single<JMTagRepository> { JMTagRepositoryImpl(get(), get()) }
     single<JMCoverRepository> { JMCoverRepositoryImpl(get(), get()) }
     single<JMChapterRepository> { JMChapterRepositoryImpl(get(), get()) }
+    single<JMChapterImagesRepository> { JMChapterImagesRepositoryImpl(get(), get()) }
 
 
     viewModel { JMDashboardHomePageVM(androidApplication(), get(), get()) }
     viewModel { JMDashboardSearchPageVM(get()) }
     viewModel { JMMangaInfoVM(get()) }
     viewModel { JMMangaListVM(get()) }
+    viewModel { JMChapterReadActivityVM(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {

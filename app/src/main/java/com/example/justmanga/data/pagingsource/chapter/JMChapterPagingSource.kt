@@ -26,14 +26,12 @@ class JMChapterPagingSource(
         val offset = if (params.key != null) ((position - 1) * NETWORK_PAGE_SIZE) + 1 else INITIAL_LOAD_SIZE
         return try {
 
-            val queryMap: Map<String, String> = mapOf("chapter" to "asc")
-
             val jsonResponse = chapterApiService.getAllMangaChapters(
                 offset = offset.toString(),
                 limit = params.loadSize.toString(),
                 manga = mangaID,
                 translatedLanguage = listOf("en"),
-                ChapterOrder("asc")
+//                listOf(mapOf("chapter" to "asc"))
             )
             Log.d("CHAPTER_RESPONSE", jsonResponse.toString())
             val response = chapterMapper.mapToModel(jsonResponse).data

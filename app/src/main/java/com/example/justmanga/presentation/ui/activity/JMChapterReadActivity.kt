@@ -1,10 +1,19 @@
 package com.example.justmanga.presentation.ui.activity
 
 import android.animation.ObjectAnimator
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.example.justmanga.R
+import com.example.justmanga.databinding.ChapterReadSettingsDialogBinding
 import com.example.justmanga.databinding.JmActivityChapterReadBinding
 import com.example.justmanga.presentation.adapter.JMChapterReadPagerAdapter
 import com.example.justmanga.presentation.utils.Utils
@@ -58,6 +67,16 @@ class JMChapterReadActivity : FragmentActivity() {
 
     private fun setListeners() = with(binding){
         backBtn.setOnClickListener { finish() }
+        settingsBtn.setOnClickListener { openSettingsDialog() }
+    }
+
+    private fun openSettingsDialog() {
+        val binding: ChapterReadSettingsDialogBinding = ChapterReadSettingsDialogBinding.inflate(layoutInflater);
+        val alertDialog = Dialog(this@JMChapterReadActivity)
+        alertDialog.setContentView(binding.root)
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        alertDialog.show()
     }
 
     private fun setChapterInfo() = with(binding){

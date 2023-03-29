@@ -19,6 +19,6 @@ interface JMChapterApiService {
         @Query("limit") limit: String,
         @Query("manga") manga: String,
         @Query("translatedLanguage[]") translatedLanguage: List<String>,
-        @Body order: ChapterOrder
+//        @Query("order[]") order: List<Map<String, String>>
     ): Response<JMChapterResponseDto>
 }

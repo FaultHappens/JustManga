@@ -3,6 +3,7 @@ package com.example.justmanga.data.dto.manga.response
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 
 data class JMMangaResponseDto(
@@ -68,7 +69,8 @@ data class Tag(
 
 @Parcelize
 data class AttributesX(
-    val description: List<DescriptionX>?,
+
+    val description: @RawValue HashMap<String, String>,
     val group: String?,
     val name: Map<String?, String?>,
     val version: Int?
@@ -79,10 +81,4 @@ data class Relationship(
     val id: String?,
     val related: String?,
     val type: String?
-): Parcelable
-
-@Parcelize
-data class DescriptionX(
-    val property1: String?,
-    val property2: String?
 ): Parcelable

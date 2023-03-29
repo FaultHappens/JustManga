@@ -10,5 +10,5 @@ data class ChapterRequest(
 
 )
 data class ChapterOrder (
-    var chapter: String
+    var chapter: Map<String, String>
     )

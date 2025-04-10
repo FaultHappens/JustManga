@@ -3,12 +3,14 @@ plugins {
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 
 
 android {
-    compileSdk 31
+    namespace 'com.example.justmanga'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.justmanga"
@@ -73,4 +75,9 @@ dependencies {
 
     implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:2.4.2"
+
+    //Zoom in Zoom out photo
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    implementation "com.refinery89.androidsdk:sharedCore-android:2.0.0"
 }

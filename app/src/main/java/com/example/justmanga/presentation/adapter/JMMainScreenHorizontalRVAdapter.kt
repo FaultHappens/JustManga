@@ -25,7 +25,7 @@ class JMMainScreenHorizontalRVAdapter(private val listener: (JMMangaWithCoverMod
                 .placeholder(circularProgressDrawable)
                 .centerCrop()
                 .into(binding.image)
-            binding.text.text = data.manga.attributes.title.en
+            binding.text.text = data.manga.attributes.title["en"] ?: "NONE"
         }
     }
 

@@ -16,14 +16,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/mangaNameTV"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/varela_round"
+                android:maxLines="3"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Manga Eng name" />
+
             <ImageView
+                android:layout_marginTop="10dp"
                 android:id="@+id/mangaImage"
                 android:layout_width="140dp"
                 android:layout_height="200dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/mangaNameTV" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -71,7 +87,7 @@
             <TextView
                 android:id="@+id/authorNameTV"
                 android:layout_width="120dp"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/varela_round"
                 android:textColor="@color/white"
@@ -98,7 +114,7 @@
             <TextView
                 android:id="@+id/artistNameTV"
                 android:layout_width="120dp"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/varela_round"
                 android:textColor="@color/white"
@@ -126,7 +142,7 @@
             <TextView
                 android:id="@+id/statusTV"
                 android:layout_width="120dp"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/varela_round"
                 android:textColor="@color/white"
@@ -138,17 +154,34 @@
                 tools:text="Manga status" />
 
             <TextView
+                android:id="@+id/descriptionTV"
+                android:layout_width="0dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/varela_round"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mangaImage"
+                tools:text="Manga Description" />
+
+            <TextView
                 android:id="@+id/textView12"
+                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:fontFamily="@font/varela_round"
                 android:text="@string/genres"
                 android:textColor="#CCCBCB"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/mangaImage"
-                app:layout_constraintTop_toBottomOf="@+id/mangaImage" />
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
 
             <TextView
                 android:id="@+id/genresTV"

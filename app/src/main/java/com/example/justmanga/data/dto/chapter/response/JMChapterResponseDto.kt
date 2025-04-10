@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class JMChapterResponseDto(
     @SerializedName("data")
-    val `data`: List<JMChapterModel>,
+    val data: List<JMChapterModel>,
 
     @SerializedName("limit")
     val limit: Int,

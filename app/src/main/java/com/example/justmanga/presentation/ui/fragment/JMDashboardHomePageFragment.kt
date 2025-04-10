@@ -116,10 +116,7 @@ class JMDashboardHomePageFragment : Fragment() {
         }
         popularMangasRVAdapter = JMMainScreenHorizontalRVAdapter { item ->
             addRecentManga(item.manga.id)
-            val action =
-                JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(
-                    item
-                )
+            val action = JMDashboardHomePageFragmentDirections.actionJMDashboardHomePageFragmentToJMMangaDetailsFragment(item)
             findNavController().navigate(action)
         }
         recentMangasRVAdapter = JMMainScreenHorizontalRVAdapter { item ->
@@ -201,15 +198,19 @@ class JMDashboardHomePageFragment : Fragment() {
 
 
     private fun setWelcomingText() {
-        val timeOfDay: Int = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        if (timeOfDay in 4..11) {
-            binding.greetingsTV.text = getString(R.string.morning_greeting1)
-        } else if (timeOfDay in 12..15) {
-            binding.greetingsTV.text = getString(R.string.afternoon_greeting)
-        } else if (timeOfDay in 16..20) {
-            binding.greetingsTV.text = getString(R.string.evening_greeting1)
-        } else if (timeOfDay in 21..23 || timeOfDay in 0..3) {
-            binding.greetingsTV.text = getString(R.string.night_greeting1)
+        when (Calendar.getInstance().get(Calendar.HOUR_OF_DAY)) {
+            in 4..11 -> {
+                binding.greetingsTV.text = getString(R.string.morning_greeting1)
+            }
+            in 12..15 -> {
+                binding.greetingsTV.text = getString(R.string.afternoon_greeting)
+            }
+            in 16..20 -> {
+                binding.greetingsTV.text = getString(R.string.evening_greeting1)
+            }
+            in 21..23, in 0..3 -> {
+                binding.greetingsTV.text = getString(R.string.night_greeting1)
+            }
         }
     }
 }

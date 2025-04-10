@@ -9,7 +9,8 @@ plugins {
 
 
 android {
-    compileSdk 31
+    namespace 'com.example.justmanga'
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.justmanga"
@@ -77,4 +78,6 @@ dependencies {
 
     //Zoom in Zoom out photo
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    implementation "com.refinery89.androidsdk:sharedCore-android:2.0.0"
 }
